@@ -1,0 +1,269 @@
+.ca-cart-container {
+  padding: 20px;
+  width: 90%;
+  margin-left: 5%;
+}
+
+.ca-breadcrumb {
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+.ca-breadcrumb li {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.ca-breadcrumb li a {
+  color: #333;
+  text-decoration: none;
+}
+
+.ca-breadcrumb li::after {
+  content: ">";
+  margin-left: 5px;
+}
+
+.ca-breadcrumb li:last-child::after {
+  content: "";
+}
+
+.ca-order_top {
+  border-bottom: 4px solid #e5e5e5;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ca-tit {
+  display: flex;
+  align-items: center;
+}
+
+.ca-tit h1 {
+  font-size: 40px;
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+.ca-order-type {
+  display: flex;
+  align-items: center;
+}
+
+.ca-order-type p {
+  margin: 0;
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.ca-tit .ca-t_blue {
+  color: #0078d7;
+}
+
+.ca-tit .ca-button {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}
+
+.ca-order-steps {
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+}
+.ca-order-type {
+  display: block;
+  margin-top: 5px;
+}
+
+.ca-order-type-btn {
+  display: block;
+  margin-top: 10px;
+}
+
+/* 주석: 이미지와 텍스트의 크기를 키움 */
+.ca-step {
+  display: flex;
+  align-items: center;
+  margin-right: 30px; /* 사이 간격을 더 넓게 */
+  text-align: left;
+  color: #333;
+  font-size: 16px; /* 텍스트 크기를 키움 */
+  font-weight: bold;
+}
+
+.ca-step .ca-icon-wrapper {
+  margin-right: 15px; /* 이미지와 텍스트 사이의 간격 조정 */
+  width: auto; /* 아이콘 크기를 키움 */
+  height: auto; /* 아이콘 크기를 키움 */
+}
+
+.ca-step-icon {
+  width: auto; /* 아이콘 이미지 크기를 키움 */
+  height: 70px;
+}
+
+.ca-step p {
+  margin: 0;
+  font-size: 16px; /* 텍스트 크기를 키움 */
+}
+
+.ca-step:not(.ca-on) p {
+  color: #666;
+}
+
+/*장바구니 내역*/
+.ca-l_order {
+  padding: 20px;
+  margin-top: 20px;
+  max-width: 80%;
+  flex: 1 !important;
+}
+
+.order-area {
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.result-area {
+  margin-top: 103px;
+  width: 250px;
+}
+
+.result-area td strong {
+  font-size: 30px;
+  color: #cb1919;
+}
+
+.result-area h1 {
+  color: #fff;
+  background: #4b4b4b;
+  text-align: center;
+  line-height: 49px;
+  font-size: 18px;
+}
+.ca-tbl_style {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.ca-tbl_style th,
+.ca-tbl_style td {
+  border-bottom: 1px solid #cccccc;
+  padding: 10px;
+  text-align: center;
+}
+
+.title-span {
+  font-size: 13px;
+}
+
+.ca-tbl_style th {
+  border-top: 2px solid #333;
+  border-bottom: 1px solid #333;
+  font-weight: bold;
+}
+
+.ca-tbl_style .ca-checkbox {
+  margin: 0;
+}
+
+.ca-tbl_style .ca-lbl {
+  margin-left: 5px;
+}
+
+.ca-button {
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  color: #333;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.ca-button:last-child {
+  margin-right: 0;
+}
+
+.ca-txt_list {
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #666;
+}
+
+.ca-txt_list li {
+  margin-bottom: 10px;
+}
+
+.ca-txt_list .ca-t_red {
+  color: #d10000;
+  font-weight: bold;
+}
+
+.count-input {
+  text-align: center;
+  width: 40px !important;
+  height: 20px !important;
+  background-color: #fff;
+  border: 1px solid #cccccc;
+}
+
+.plusMinus-div img {
+  align-items: center;
+  width: 20px;
+  height: 20px;
+}
+
+.plusMinus-div #plus {
+  align-items: center;
+  background-color: #333;
+  border: none;
+  width: 35px;
+  height: 35px;
+}
+
+.plusMinus-div #minus {
+  align-items: center;
+  background-color: #666;
+  border: none;
+  width: 35px;
+  height: 35px;
+}
+
+.plusMinus-div {
+  margin-left: 5px;
+  align-items: center;
+  display: inline;
+  width: 40px;
+  height: 20px;
+}
+
+.ca-tbl_style td:last-child strong {
+  font-size: 30px;
+  color: #cb1919;
+}
+.cart-z-index {
+  position: absolute;
+  top: 30px; /* 원하는 위치로 조정 */
+  right: 102px; /* 원하는 위치로 조정 */
+  z-index: 1;
+  background-color: #cb1919; /* 배경 색 추가하여 잘 보이게 */
+  color: white;
+  width: 15px; /* 원하는 크기로 설정 */
+  height: 15px; /* 원하는 크기로 설정 */
+  border-radius: 50%; /* 구 형태로 만듦 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px; /* 숫자가 가운데에 위치하게 조정 */
+}

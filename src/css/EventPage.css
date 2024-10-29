@@ -1,0 +1,351 @@
+/* 이벤트 */
+#ImgList {
+  list-style: none;
+  padding: 0;
+}
+.event_list li {
+  clear: both;
+  padding: 20px 0;
+  border-bottom: 1px solid #cccccc;
+}
+.event_list li .img {
+  position: relative;
+  float: left;
+}
+.event_list li .img img {
+  width: 380px;
+  height: 90px;
+}
+.event_list li .img strong {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  width: 225px;
+  padding-left: 155px;
+  line-height: 90px;
+  background: #000
+    url(//cdn.mrpizza.co.kr/2014_resources/images/event/bg_eventOff.png)
+    no-repeat 102px center;
+  color: #fff;
+  font-size: 16px;
+  opacity: 0.7;
+  -moz-opacity: 0.7;
+  -khtml-opacity: 0.7;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+  filter: alpha(opacity=70);
+}
+.event_list li > div {
+  position: relative;
+  margin-left: 400px;
+  min-height: 64px;
+  padding-bottom: 26px;
+  font-size: 14px;
+}
+.event_list li div .date {
+  color: #666;
+}
+.event_list li div .ic {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.event_list li div .ic img {
+  margin-right: 6px;
+}
+.cont_top + .event_list {
+  margin-top: -40px;
+}
+.mobile_event {
+  display: none;
+}
+
+.evt_view {
+  text-align: center;
+  width: 950px;
+  margin: 0 auto;
+}
+.evt_view .m_btn {
+  display: none;
+}
+.evt_view .w_btn {
+  margin-top: 30px;
+}
+
+.poll_view {
+  padding: 30px;
+}
+.poll_view > div {
+  padding: 30px 0;
+  border-bottom: 1px solid #d3d3d3;
+}
+.poll_view > div > p {
+  padding-left: 15px;
+}
+.poll_view h2 {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.poll_view h3 {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+.poll_view .poll_inp {
+  width: 650px;
+}
+.poll_view .poll_inp2 {
+  width: 100px;
+  margin-right: 5px;
+}
+.poll_view ul {
+  padding: 0 15px;
+}
+.poll_view ul li {
+  margin-top: 10px;
+}
+.poll_view ul li:first-child {
+  margin-top: 0;
+}
+.poll_view ul li .poll_inp {
+  margin-left: 10px;
+}
+.poll_view .txt_box {
+  margin-top: 10px;
+  padding: 20px;
+  border: 1px solid #d3d3d3;
+}
+.poll_view .txt_box > h3 {
+  font-size: 18px;
+  margin: 0;
+}
+.poll_view .txt_box > p {
+  margin-bottom: 10px;
+  padding: 0;
+}
+.poll_view .txt_box textarea {
+  width: 723px;
+}
+
+/* new 이벤트 리스트 2018 04 23 */
+.new_event_list li .img {
+  display: block;
+  float: none;
+}
+.new_event_list li .img img {
+  width: 100%;
+  height: auto;
+}
+.new_event_list li > div {
+  margin-left: 0;
+  box-sizing: border-box;
+  padding-right: 345px;
+  margin-top: 20px;
+}
+.new_event_list li div .ic {
+  right: 0;
+  top: 0;
+  width: 336px;
+  left: auto;
+  bottom: auto;
+}
+.new_event_list li div .ic img {
+  margin-right: 0;
+  margin-left: 6px;
+}
+.new_event_list li .img strong {
+  width: 100%;
+  height: 185px;
+  line-height: 185px;
+  font-size: 26px;
+  box-sizing: border-box;
+  background-position: 252px center;
+  padding-left: 305px;
+}
+
+/* 제휴할인 */
+.tit_con {
+  margin-bottom: 30px;
+  min-height: 90px;
+  background-position: right 0;
+  background-repeat: no-repeat;
+}
+.tit_con h2 {
+  margin-bottom: 10px;
+}
+.tit_con p {
+  color: #747474;
+}
+.tit_con.bg_card1 {
+  background-image: url(//cdn.mrpizza.co.kr/2014_resources/images/discount/bg_phone.gif);
+}
+.tit_con.bg_card2 {
+  background-image: url(//cdn.mrpizza.co.kr/2014_resources/images/discount/bg_card1.gif);
+}
+.tit_con.bg_card3 {
+  background-image: url(//cdn.mrpizza.co.kr/2014_resources/images/discount/bg_card2.gif);
+}
+
+.discount_con {
+  overflow: hidden;
+  padding: 30px 0 30px 13px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+}
+.discount_con.borderNone {
+  border: 0;
+}
+.discount_con .cardImg {
+  float: left;
+}
+.discount_con .info {
+  margin-left: 300px;
+}
+.discount_con div.info_con div.info p.f14 {
+  margin-top: 5px;
+}
+.discount_con ul.txt_list {
+  margin-top: 17px;
+}
+.cardInfo {
+  margin-top: 10px;
+}
+.cardInfo li {
+  float: left;
+  margin-left: 5px;
+}
+.cardInfo li:first-child {
+  margin: 0;
+}
+.cardInfo.li20 li {
+  float: left;
+  margin-left: 2px;
+  width: 19%;
+}
+.cardInfo.li20 li:first-child {
+  margin: 0;
+}
+.cardInfo.li20 li img {
+  width: 100%;
+}
+
+/* E쿠폰할인 */
+.tit_con.bg_coupon1 {
+  background-image: url(//cdn.mrpizza.co.kr/2014_resources/images/discount/bg_coupon1.gif);
+}
+.tit_con.bg_coupon2 {
+  background-image: url(//cdn.mrpizza.co.kr/2014_resources/images/discount/bg_coupon2.gif);
+}
+
+.coupon_con {
+  overflow: hidden;
+  margin-top: -1px;
+  padding: 40px 50px 0 50px;
+  border: 1px solid #ccc;
+}
+.coupon_con .cardImg {
+  float: left;
+}
+.coupon_con .info {
+  margin-left: 280px;
+}
+.coupon_con .info p.f14 {
+  margin-top: 5px;
+}
+.coupon_con .info ul.txt_list {
+  margin: 20px 0 20px 0;
+}
+
+.coupon_con.mobile {
+  padding: 40px 0 25px 30px;
+}
+.coupon_con.mobile .info {
+  margin-left: 260px;
+}
+
+.ecoupon_tit {
+  line-height: 80px;
+}
+/* 온라인할인 */
+.discount_info {
+  overflow: hidden;
+  margin-top: -1px;
+  padding: 30px 35px;
+  border: 1px solid #ccc;
+}
+.discount_info img.onlineImg {
+  float: left;
+  margin-top: 5px;
+}
+.discount_info div.info {
+  float: left;
+  margin-left: 35px;
+}
+.discount_info div.info p.f20 {
+  margin-bottom: 15px;
+}
+
+/* 모바일할인 */
+.qr_con {
+  margin-top: 50px;
+}
+.qr_con p.cont_tit {
+  margin-bottom: 30px;
+  line-height: 1.2;
+}
+.qr_con div.qrImg_con {
+  margin-bottom: 20px;
+  padding-left: 40px;
+}
+.qr_con div.qrImg_con img.qr_img {
+  margin: 50px 0 0 120px;
+}
+
+/* 방문포장 할인 */
+.visit_box {
+  padding: 30px;
+  height: 160px;
+  border: 1px solid #333333;
+  background: url(//cdn.mrpizza.co.kr/2014_resources/images/discount/bg_visit.gif)
+    no-repeat 95% center;
+}
+.visit_box ul {
+  margin-top: 20px;
+}
+.visit_con {
+  overflow: hidden;
+  margin-top: 40px;
+}
+.visit_con div.txt {
+  float: left;
+}
+.visit_con div.txt p.cont_tit {
+  margin-bottom: 10px;
+}
+.visit_con ul.num_list li {
+  padding-left: 20px;
+  font-size: 15px;
+  color: #666666;
+}
+.visit_con img {
+  float: right;
+}
+
+/* 단체주문 할인 */
+.download_btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 410px;
+  margin: 60px auto 0;
+}
+.download_btns a {
+  background: #cb1919;
+  font-size: 16px;
+  color: #fff;
+  font-weight: bold;
+  padding: 11px 0;
+  width: 200px;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+}

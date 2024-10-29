@@ -1,0 +1,1449 @@
+/* 전체 스타일 */
+html,
+body {
+  margin: 0; /* 기본 마진 제거 */
+  padding: 0; /* 기본 패딩 제거 */
+  width: 100%; /* 전체 너비 설정 */
+  height: 100%; /* 전체 높이 설정 */
+  overflow-x: hidden; /* 좌우 스크롤 숨기기 */
+  overflow-y: auto; /* 상하 스크롤 허용 */
+}
+
+.content {
+  width: 100vw; /* 화면 전체 너비 */
+
+  box-sizing: border-box; /* 패딩과 보더를 포함한 너비 계산 */
+}
+/* 전체 스타일 끝*/
+/* 헤더 css*/
+
+.header {
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  padding: 10px 20px; /* 위아래 및 좌우 여백 설정 */
+  background-color: #fff; /* 배경 색상 */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* 약간의 그림자 */
+  border-bottom: 1px solid #ffda30;
+  box-sizing: border-box; /* 패딩과 보더를 포함한 너비 계산 */
+  z-index: 1;
+  position: relative; /* 부모 요소에 상대 위치 설정 */
+}
+
+.menu-btn {
+  background: none; /* 배경 제거 */
+  border: none; /* 테두리 제거 */
+  padding: 0; /* 패딩 제거 */
+  margin: 0; /* 마진 제거 */
+  cursor: pointer; /* 클릭 시 포인터 커서 표시 */
+}
+
+/* 로고 이미지 */
+.header__logo img {
+  height: 50px; /* 로고 이미지 높이 조정 */
+}
+
+/* 네비게이션 스타일링 */
+.header__nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav__list {
+  display: flex; /* 수평 정렬 */
+  list-style: none; /* 기본 리스트 스타일 제거 */
+  margin: 0;
+  padding: 0;
+}
+
+.nav__item {
+  margin: 0 20px; /* 좌우 간격 */
+  display: flex;
+  align-items: center;
+  white-space: nowrap; /* 텍스트가 줄 바꿈 없이 한 줄로 표시 */
+}
+
+.nav__item a {
+  text-decoration: none; /* 링크 밑줄 제거 */
+  color: #333; /* 링크 글자 색상 */
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+  z-index: 9999;
+}
+
+.nav__item img {
+  margin-right: 8px; /* 이미지와 텍스트 간격 */
+  width: 41;
+  height: 33px;
+}
+
+/* 헤더 버튼 영역 */
+.hd_btn_area {
+  display: flex;
+  align-items: center;
+}
+
+.hd_btn_area a {
+  margin-left: 15px; /* 버튼 간의 간격 */
+}
+
+.hd_btn_area img {
+  width: 50px;
+  height: 50px; /* 버튼 이미지 크기 */
+}
+
+.header__nav .baro {
+  position: relative; /* 부모 요소에 상대 위치 설정 */
+}
+
+.header__nav .baro a {
+  text-decoration: none;
+  color: #e20c3e;
+  font-size: 17px;
+  font-weight: bold;
+  position: relative;
+}
+
+.header__nav .baro span {
+  position: relative;
+  display: inline-block;
+}
+
+.header__nav .baro span::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 10px;
+  position: absolute;
+  left: 0;
+  bottom: 3px;
+  background: #ffda30;
+  z-index: -1;
+}
+
+.header .hd_btn_area #menuBtn {
+  width: 65px;
+  height: 65px;
+}
+
+/* 헤더 css 끝*/
+/* 메인화면 slider css*/
+.slider {
+  position: relative;
+}
+
+.slider img {
+  display: block;
+  margin: 0 auto; /* 중앙 정렬 */
+  max-width: 100%; /* 이미지가 컨테이너를 넘어가지 않도록 */
+  height: 450px; /* 이미지 비율 유지 */
+}
+/* App.css 또는 해당 CSS 파일에 추가 */
+.slick-dots {
+  position: absolute !important;
+  bottom: 30px !important; /* 화면 아래에서의 거리 */
+  left: 30px !important; /* 화면 왼쪽에서의 거리 */
+  width: auto !important;
+}
+
+.slick-dots li button:before {
+  font-size: 15px !important; /* 도트 크기 조정 */
+  color: black; /* 도트 색상 변경 */
+  opacity: 0.5; /* 도트 투명도 */
+}
+
+.slick-dots li.slick-active button:before {
+  color: white !important; /* 활성화된 도트 색상 */
+  opacity: 1; /* 활성화된 도트 투명도 */
+}
+/* 메인화면 slider css 끝*/
+
+/* 사이드바 css*/
+.SideBar-area {
+  position: fixed; /* 화면에 고정 */
+  right: 16px; /* 오른쪽 끝에 배치 */
+  top: 110px; /* 상단에 배치 */
+  width: 80px; /* 사이드바의 너비 */
+  height: 350px; /* 화면 높이에 맞게 설정 */
+  background-color: #f4f4f4; /* 배경 색상 */
+  border-top-left-radius: 10px; /* 상단 왼쪽 모서리 둥글게 */
+  border-bottom-left-radius: 10px; /* 하단 왼쪽 모서리 둥글게 */
+  display: flex; /* Flexbox 레이아웃 사용 */
+  flex-direction: column; /* 수직으로 배치 */
+  align-items: center; /* 항목들을 수평 가운데 정렬 */
+  justify-content: center; /* 항목들을 수직 가운데 정렬 */
+  z-index: 10; /* 다른 요소보다 위에 위치하도록 설정 */
+  overflow: hidden; /* 사이드바 내용이 넘치지 않도록 */
+}
+.side-z-index {
+  position: absolute;
+  top: 190px; /* 원하는 위치로 조정 */
+  right: 20px; /* 원하는 위치로 조정 */
+  z-index: 11;
+  background-color: #cb1919; /* 배경 색 추가하여 잘 보이게 */
+  color: white;
+  width: 15px; /* 원하는 크기로 설정 */
+  height: 15px; /* 원하는 크기로 설정 */
+  border-radius: 50%; /* 구 형태로 만듦 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px; /* 숫자가 가운데에 위치하게 조정 */
+  font-weight: lighter;
+}
+.SideBar-content {
+  display: flex; /* Flexbox 레이아웃 사용 */
+  flex-direction: column; /* 수직으로 배치 */
+  width: 100%; /* 사이드바의 너비에 맞춤 */
+}
+
+.SideBar-area ul {
+  list-style: none; /* 기본 리스트 스타일 제거 */
+  padding: 0; /* 기본 패딩 제거 */
+  margin: 0; /* 기본 마진 제거 */
+  width: 100%; /* 전체 너비 사용 */
+}
+
+.SideBar-area li {
+  margin: 10px 0; /* 항목 사이의 수직 간격 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+  width: 100%; /* 사이드바 너비에 맞춤 */
+  height: 80px; /* 항목 높이 */
+  border-bottom: 1px solid rgba(128, 128, 128, 0.3); /* 항목 하단 경계선 */
+  display: flex; /* Flexbox 레이아웃 사용 */
+  align-items: center; /* 수직 가운데 정렬 */
+  justify-content: center; /* 수평 가운데 정렬 */
+  box-sizing: border-box; /* 테두리와 패딩을 너비와 높이에 포함 */
+  font-size: 13px;
+  font-weight: bold;
+}
+.SideBar-area li:last-child {
+  border-bottom: none;
+}
+
+.SideBar-area li a {
+  text-decoration: none;
+  color: grey;
+}
+
+.SideBar-area li span:not(.side-z-index) {
+  display: block;
+  color: grey;
+}
+/* 사이드바 css 끝*/
+
+/* .midSlider 컨테이너 설정 */
+.midSlider {
+  position: relative;
+  display: flex; /* Flexbox 사용 */
+  overflow: hidden; /* 넘치는 내용 숨기기 */
+  width: 100%;
+  height: 400px;
+  justify-content: center; /* 항목들을 수직 가운데 정렬 */
+  align-items: center;
+  padding-left: 60px;
+}
+
+/* 슬라이더 항목의 스타일 */
+.midSlider div {
+  flex: 1; /* 슬라이더 항목이 같은 너비를 가지도록 설정 */
+  min-width: 0; /* 최소 너비를 0으로 설정하여 flex-grow 적용 */
+}
+
+/* 개별 슬라이더의 스타일 */
+.midSlider-left,
+.midSlider-right {
+  max-width: 550px; /* 슬라이더의 고정 너비 */
+  height: 280px; /* 슬라이더의 고정 높이 */
+}
+
+/* 이미지 스타일 */
+.midSlider img {
+  border-radius: 20px; /* 이미지의 모서리 둥글게 */
+  width: 500px;
+  height: auto;
+  object-fit: cover; /* 이미지 비율 유지 */
+}
+/* 미드 슬라이더 끝 */
+
+/* 아래 사이드바 */
+.botSlider {
+  position: relative; /* 자식 요소의 위치 설정을 위한 기준 */
+  background-color: #f4f4f4;
+  width: 100%;
+  height: 330px;
+  text-align: center; /* 텍스트 가운데 정렬 */
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.botSlider-header {
+  position: relative; /* 자식 요소의 위치 설정을 위한 기준 */
+  display: inline-block; /* 텍스트 길이에 맞게 h3 요소 너비 조정 */
+}
+
+.botSlider-img {
+  display: block;
+  width: 100%; /* 이미지의 너비를 전체 컨테이너에 맞춤 */
+  height: auto; /* 이미지 비율 유지 */
+}
+
+.botSlider-text {
+  position: absolute; /* 부모 요소를 기준으로 위치 설정 */
+  bottom: 10px; /* 이미지 하단으로부터의 거리 */
+  left: 50%; /* 부모 요소의 가운데 위치 */
+  transform: translateX(-50%); /* X축으로 가운데 정렬 */
+  display: flex; /* 텍스트를 가로로 배치하기 위해 Flexbox 사용 */
+  gap: 10px; /* 각 단어 사이의 간격 */
+  white-space: nowrap; /* 텍스트가 줄 바꿈 없이 한 줄로 표시 */
+}
+
+.botSlider-slide a {
+  margin-top: 100px;
+  text-decoration: none;
+  color: black;
+  width: 100px;
+  height: 100%;
+  text-align: center;
+  justify-content: center;
+}
+
+.botSlider-slide-mt {
+  margin-top: 60px;
+}
+.botSlider-slide {
+  display: flex;
+  width: 220px !important;
+  height: 200px;
+  background-color: #fff;
+  border-radius: 30px;
+  margin: 0 10px;
+}
+
+.botSlider-slide span {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.botSlider-slide strong {
+  font-size: 50px;
+  color: #e20c3e;
+}
+
+.group_order {
+  font-weight: bold !important;
+  font-size: 30px !important;
+}
+/* 아래 사이드바 끝 */
+
+/* 아래 정보슬라이드바 */
+.botInfoSlider {
+  display: flex; /* Flexbox 사용 */
+  overflow: hidden; /* 넘치는 내용 숨기기 */
+  width: 100%;
+  height: 400px;
+  justify-content: center; /* 항목들을 수직 가운데 정렬 */
+  align-items: center;
+  padding-left: 60px;
+  position: relative;
+}
+
+/* 슬라이더 항목의 스타일 */
+.botInfoSlider div {
+  flex: 1; /* 슬라이더 항목이 같은 너비를 가지도록 설정 */
+  min-width: 0; /* 최소 너비를 0으로 설정하여 flex-grow 적용 */
+}
+
+/* 개별 슬라이더의 스타일 */
+.botInfoSlider-left,
+.botInfoSlider-right {
+  max-width: 550px; /* 슬라이더의 고정 너비 */
+  height: 200px; /* 슬라이더의 고정 높이 */
+}
+
+.botInfoSlider-left {
+  border: 1px solid #e6e6e6;
+  border-radius: 20px;
+  position: relative;
+}
+
+.botInfoSlider .slick-dots {
+  position: absolute !important;
+  top: -40px !important; /* 화면 아래에서의 거리 */
+  right: -400px !important; /* 화면 왼쪽에서의 거리 */
+  width: auto !important;
+}
+
+.botInfoSlider .slick-dots li.slick-active button:before {
+  color: black !important; /* 활성화된 도트 색상 */
+  opacity: 1; /* 활성화된 도트 투명도 */
+}
+
+.botInfo-item {
+  padding: 10px !important;
+  position: relative;
+  display: block;
+  padding: 10px;
+  height: 170px;
+  width: 240px !important;
+}
+
+.botInfo-item:first-child {
+  border-right: 1px solid grey;
+}
+
+.notice-h3 h3 span {
+  font-weight: normal;
+}
+
+.notice-h3 {
+  position: relative; /* 자식 요소의 위치 설정을 위한 기준 */
+  display: inline-block; /* 텍스트 길이에 맞게 h3 요소 너비 조정 */
+}
+.botInfoSlider .notice-h3 img {
+  display: block;
+  width: 58px;
+  height: 58px;
+  z-index: -1;
+}
+
+.botInfoSlider-text {
+  position: absolute; /* 부모 요소를 기준으로 위치 설정 */
+  bottom: 10px; /* 이미지 하단으로부터의 거리 */
+  left: 50%; /* 부모 요소의 가운데 위치 */
+  transform: translateX(-50%); /* X축으로 가운데 정렬 */
+  display: flex; /* 텍스트를 가로로 배치하기 위해 Flexbox 사용 */
+  gap: 10px; /* 각 단어 사이의 간격 */
+  white-space: nowrap; /* 텍스트가 줄 바꿈 없이 한 줄로 표시 */
+}
+
+.notice-area {
+  position: absolute;
+  width: 40px !important;
+  height: 40px !important;
+  background-color: #ffda30;
+  border-radius: 50%;
+  bottom: 0px;
+  right: 40px;
+}
+
+.notice-area img {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.botInfo-item strong {
+  font-size: 13px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.botInfo-item span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-size: 0.9em;
+}
+
+.botInfoSlider-right {
+  position: relative;
+}
+
+.botInfoSlider-right p,
+.botInfoSlider-right strong {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  color: #fff;
+  font-family: "yg-jalnan";
+  font-weight: bold;
+  text-align: center; /* 텍스트를 가운데 정렬 */
+}
+
+.botInfoSlider-right p {
+  top: 30%; /* 이미지 상단에서 약간 아래 위치 */
+  white-space: nowrap;
+  font-size: 20px;
+}
+
+.botInfoSlider-right strong {
+  top: 60%; /* 이미지 상단에서 더 아래 위치 */
+  font-size: 50px;
+  color: #ffda30;
+}
+
+/* 이미지 스타일 */
+.botInfoSlider img {
+  position: relative;
+  z-index: 1;
+  border-radius: 20px; /* 이미지의 모서리 둥글게 */
+  width: 500px;
+  height: 200px;
+  object-fit: cover; /* 이미지 비율 유지 */
+}
+
+/* 아래 정보슬라이드바 끝 */
+
+/* 바텀링크 스타일 */
+
+.footer-link-area {
+  border-top: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  padding: 13px 0;
+}
+
+.footer-link-area ul {
+  list-style: none; /* 기본 리스트 스타일 제거 */
+  padding: 0; /* 기본 패딩 제거 */
+  margin: 0; /* 기본 마진 제거 */
+  display: flex; /* Flexbox 활성화 */
+  justify-content: left; /* 왼쪽 정렬 */
+}
+
+.footer-link-area li {
+  margin: 0 10px; /* 좌우 간격 조정 */
+  font-size: 14px; /* 글자 크기 조정 */
+}
+
+.footer-link-area li:first-child {
+  margin-left: 50px;
+  color: red;
+}
+
+.footer-info-area {
+  margin-left: 50px;
+  font-size: 14px;
+  color: #8c8c8c;
+}
+
+.sns-list-container {
+  display: flex; /* Flexbox 활성화 */
+  justify-content: flex-end; /* 오른쪽 정렬 */
+  width: 100%; /* 전체 너비를 차지하도록 설정 */
+}
+
+.sns-list {
+  list-style: none;
+  padding: 0; /* 기본 패딩 제거 */
+  margin: 0; /* 기본 마진 제거 */
+  display: flex; /* Flexbox 활성화 */
+  justify-content: flex-end; /* 오른쪽 정렬 */
+  width: auto; /* 자동 너비 */
+  height: 31px;
+  margin-right: 50px;
+}
+
+.sns-list li {
+  margin-left: 10px; /* 좌우 간격 조정 */
+}
+
+.sns-list img {
+  width: 31px; /* 이미지 크기 조정 */
+  height: 31px; /* 이미지 크기 조정 */
+}
+
+.footer-content {
+  z-index: 0;
+}
+
+.footer-award-area {
+  margin-left: 50px;
+  display: flex;
+  align-items: flex-start; /* 자식 요소들을 상단에 정렬 */
+}
+
+.footer-award-area ul {
+  list-style: none; /* 기본 리스트 스타일 제거 */
+  padding: 0; /* 기본 패딩 제거 */
+  margin: 0; /* 기본 마진 제거 */
+  display: flex; /* Flexbox 활성화 */
+  flex-wrap: wrap; /* 아이템이 넘칠 경우 다음 줄로 이동 */
+}
+
+.footer-award-area li {
+  display: flex; /* Flexbox 활성화 */
+  align-items: center; /* 아이템들을 중앙 정렬 */
+  margin-right: 30px; /* 오른쪽 간격 조정 */
+  margin-bottom: 20px; /* 아래쪽 간격 조정 */
+  width: 130px; /* li 요소의 고정 너비 */
+}
+
+.footer-award-area img {
+  width: 41px; /* 이미지 크기 조정 */
+  height: 41px; /* 이미지 크기 조정 */
+  margin-right: 10px; /* 이미지와 텍스트 사이 간격 조정 */
+}
+
+.footer-award-area span {
+  font-size: 10px; /* 텍스트 크기 조정 */
+  line-height: 1.2; /* 줄 간격 조정 */
+  white-space: nowrap; /* 텍스트가 줄 바꿈 없이 표시되도록 설정 */
+  overflow: hidden; /* 넘치는 내용 숨기기 */
+}
+
+.footer-award-area .num {
+  margin-left: 100px;
+  margin-bottom: 50px;
+  font-size: 20px; /* 폰트 크기 조정 */
+  text-align: right; /* 오른쪽 정렬 */
+  font-weight: bold;
+}
+.footer-award-area .num strong {
+  font-size: 30px;
+  font-weight: bold;
+  color: red;
+}
+
+/* 바텀링크 스타일 끝*/
+.dropdown {
+  position: relative; /* 드롭다운을 상대 위치로 설정하여 메뉴 위치 지정 가능 */
+}
+
+.dropdown-content {
+  display: flex; /* Flexbox 활성화 */
+  position: absolute; /* 드롭다운 메뉴를 절대 위치로 설정 */
+  flex-direction: row; /* 수평 방향으로 정렬 */
+  top: 100%; /* 드롭다운 메뉴를 버튼 아래에 위치시키기 */
+  left: 0; /* 드롭다운 메뉴를 왼쪽에 맞춤 */
+  background-color: #fff; /* 드롭다운 메뉴 배경 색상 */
+  border: 1px solid #ddd; /* 드롭다운 메뉴 테두리 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 드롭다운 메뉴 그림자 */
+  z-index: 1000; /* 드롭다운 메뉴가 다른 요소 위에 표시되도록 설정 */
+  opacity: 0; /* 초기 상태에서 투명하게 설정 */
+  visibility: hidden; /* 초기 상태에서 보이지 않도록 설정 */
+  transform: translateY(-10px); /* 초기 위치에서 약간 위로 설정 */
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease; /* 애니메이션 설정 */
+  width: 100%;
+  height: 360px;
+  align-items: start;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.dropdown-content ul {
+  list-style: none;
+  padding: 0; /* 기본 패딩 제거 */
+  margin: 0; /* 기본 마진 제거 */
+  margin-top: 50px;
+  display: flex; /* Flexbox 활성화 */
+  flex-direction: column; /* 수직 방향으로 정렬 */
+  margin-right: 20px; /* ul 간의 간격 설정 */
+}
+
+.dropdown-content.show {
+  opacity: 1; /* 드롭다운이 열리면 불투명하게 설정 */
+  visibility: visible; /* 드롭다운이 열리면 보이도록 설정 */
+  transform: translateY(0); /* 원래 위치로 이동 */
+}
+
+.dropdown-content a {
+  position: relative; /* 상대 위치로 설정하여 pseudo-element 위치 조정 */
+  display: inline-block; /* 줄의 너비를 콘텐츠 너비에 맞추기 위해 inline-block으로 설정 */
+  padding: 10px 20px; /* 패딩 설정 */
+  text-decoration: none; /* 기본 밑줄 제거 */
+  color: #5f5f5f; /* 기본 글자 색상 */
+  overflow: hidden; /* 내부 요소가 넘치지 않도록 설정 */
+}
+
+.dropdown-content a::before {
+  content: ""; /* 비어 있는 content 설정 */
+  position: absolute; /* 절대 위치로 설정 */
+  bottom: 0; /* 링크의 아래쪽에 위치 */
+  left: 20; /* 시작 위치를 왼쪽으로 설정 */
+  height: 2px; /* 줄의 높이 설정 */
+  width: 0; /* 기본 상태에서는 줄의 너비를 0으로 설정 */
+  background-color: #e20c3e; /* 줄의 배경 색상 설정 */
+  transition: width 0.2s ease-out; /* 줄의 너비가 애니메이션되도록 설정 */
+}
+
+/* 링크에 마우스를 올렸을 때 줄이 애니메이션되도록 설정 */
+.dropdown-content a:hover::before {
+  left: 0; /* 줄의 위치를 왼쪽으로부터 이동하여 보이게 설정 */
+  width: 100%; /* 줄의 너비를 링크의 너비와 같게 설정 */
+}
+
+/* @@@@@@@@@@@@@@@@@로그인@@@@@@@@@@@@@@@@@ */
+#container {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  justify-content: center;
+}
+
+#join-contents {
+  width: 70%;
+}
+
+#login-contents {
+  width: 70%;
+}
+
+#contents {
+  position: relative;
+  z-index: 0;
+  flex: 1;
+}
+
+#lnb {
+  width: 190px;
+  margin-right: 20px;
+  height: 120px;
+  margin-top: 35px;
+}
+
+#lnb h1 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  border-bottom: 2px solid #000;
+}
+
+#lnb ul {
+  list-style: none;
+  padding: 0;
+  font-size: 13px;
+}
+#lnb li a.on {
+  color: #cb1919;
+  font-weight: bold;
+  border-bottom: 1px solid #cb1919;
+}
+
+#lnb ul li {
+  margin-bottom: 10px;
+}
+
+#lnb ul li a {
+  text-decoration: none;
+  color: #000;
+}
+
+/* #lnb ul li.active a {
+  color: red;
+} */
+
+.cont_top {
+  padding: 0 0 10px;
+}
+
+.cont_top h1 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  margin-top: 40px;
+  font-weight: bold;
+  border-bottom: 2px solid #000;
+}
+
+#location {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin-bottom: -19px;
+  align-items: center;
+  justify-content: right;
+  font-size: 12px;
+}
+
+#location li {
+  margin-right: 10px;
+}
+
+#location li a.home {
+  text-decoration: none;
+  color: black;
+}
+
+#location li strong {
+}
+
+/* 탭메뉴의 기본 스타일 */
+.tabmenu > li > a {
+  display: flex; /* Flexbox 사용 */
+  justify-content: center; /* 가로 정렬 가운데 */
+  align-items: center; /* 세로 정렬 가운데 */
+  height: 50px; /* 고정 높이 설정 */
+  padding: 0 30px; /* 좌우 패딩 */
+  border: 1px solid #d1d1d1; /* 기본 테두리 색상 */
+  border-bottom: 0; /* 하단 테두리 제거 */
+  background: #f2f2f2; /* 배경색 설정 */
+  text-align: center;
+  font-size: 15px;
+  box-sizing: border-box; /* 테두리와 패딩을 높이에 포함 */
+}
+
+.tabmenu li:first-child a {
+  border-color: #808080; /* 테두리 색상 */
+  border-top: 4px solid #dd0009; /* 상단 테두리 두께와 색상 설정 */
+  background: #fff; /* 배경색을 흰색으로 설정 */
+  color: #cb1919; /* 텍스트 색상 */
+  font-family: NGBold; /* 폰트 설정 */
+  padding: 0 30px; /* 좌우 패딩 */
+  box-sizing: border-box; /* 테두리와 패딩을 높이에 포함 */
+}
+
+/* 탭 활성화 시 스타일 */
+.tabmenu li a:hover,
+.tabmenu li a:focus,
+.tabmenu li a:active,
+.tabmenu li a.on {
+  border-color: #808080; /* 테두리 색상 */
+  border-top: 4px solid #dd0009; /* 상단 테두리 두께와 색상 설정 */
+  background: #fff; /* 배경색을 흰색으로 설정 */
+  color: #cb1919; /* 텍스트 색상 */
+  font-family: NGBold; /* 폰트 설정 */
+  padding: 0 30px; /* 좌우 패딩 */
+  box-sizing: border-box; /* 테두리와 패딩을 높이에 포함 */
+}
+
+/* 탭메뉴 리스트 항목의 활성화된 탭 스타일 */
+.tabmenu li a {
+  display: block;
+  text-decoration: none;
+  color: #333;
+  height: 50px; /* 고정 높이 설정 */
+  line-height: 50px; /* 수직 정렬을 위해 라인 높이를 고정 높이와 동일하게 설정 */
+  box-sizing: border-box;
+}
+
+/* 탭메뉴의 기본 스타일 */
+.tabmenu {
+  list-style: none;
+  padding-left: 10px; /* 좌측 패딩 제거 */
+  border-bottom: 1px solid #808080; /* 하단 테두리 설정 */
+  display: flex; /* 플렉스 박스를 사용하여 수평 정렬 */
+  margin-bottom: 5%;
+}
+
+.tab_cont {
+  /* display: none; */
+}
+
+.tab_cont.active {
+  display: block;
+}
+
+.login_wrap {
+  border: 1px solid #ddd;
+  padding: 20px;
+  background: #fff;
+  margin-bottom: 20px;
+  max-width: 500px;
+  height: 150px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* 로그인 텍스트 스타일 설정 */
+.tit {
+  font-size: 30px; /* 텍스트 크기 설정 */
+  color: red; /* 텍스트 색상 설정 */
+  font-weight: bold; /* 텍스트 굵게 설정 */
+  margin-bottom: 20px; /* 하단 마진 설정 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+.tit3 {
+  font-size: 16px;
+  padding-left: 60px;
+}
+
+/* 로그인 박스 스타일 */
+.login_box {
+  display: flex;
+  flex-direction: column; /* 세로로 배치 */
+  align-items: flex-end; /* 오른쪽 정렬 */
+}
+
+.login_box ul {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  margin-bottom: -50px;
+}
+
+.login_box ul li {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between; /* 아이디와 비밀번호 필드를 양쪽 끝으로 정렬 */
+  width: 100%;
+}
+
+.login_box input[type="text"],
+.login_box input[type="password"] {
+  width: 310px;
+  border: 1px solid #ddd;
+  margin-right: 10px; /* 버튼과 간격 조정 */
+}
+
+.login_box .btn {
+  margin-top: -90px; /* 버튼과 입력 필드 사이의 간격 */
+  justify-content: flex-end;
+}
+
+.login_box .btn .button {
+  width: 120px;
+  height: 80px;
+  background: red;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-top: -12px;
+  margin-right: 40px;
+}
+
+.chk {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  width: 93% !important;
+}
+
+.chk label {
+  display: flex;
+  align-items: center;
+}
+
+.chk .btn_login_phone {
+  text-decoration: none;
+  color: red;
+  font-size: 12px;
+}
+
+.joinbtn {
+  margin: 10px;
+}
+
+/* 로그인 박스 아래의 버튼들을 위한 스타일 */
+.mt40 {
+  margin-top: 40px;
+  text-align: center; /* 버튼들을 중앙 정렬 */
+  display: flex;
+  justify-content: center;
+}
+
+.mt40 a {
+  margin: 10px; /* 버튼 사이의 간격을 조정 */
+  display: inline-block; /* 버튼을 인라인 블록 요소로 설정하여 간격 조정 */
+}
+
+.t_red {
+  color: red;
+}
+
+.button.grad {
+  background: #fff; /* 회색 배경색 */
+  color: #333; /* 텍스트 색상 검정 */
+  border: 1px solid #d1d1d1; /* 테두리 색상 설정 */
+  width: 120px;
+  height: 35px;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center; /* 텍스트 가운데 정렬 */
+  border-radius: 5px; /* 모서리 둥글게 */
+  margin-right: 10px; /* 버튼 간격 추가 */
+  padding-top: 8px;
+  box-sizing: border-box;
+}
+
+.login_list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  justify-content: space-between;
+}
+
+.login_list li {
+  text-align: center;
+  flex: 1;
+  margin: 10px;
+  border-left: 1px solid #e5e5e5;
+}
+.login_list li:first-child {
+  border-left: none;
+}
+
+.login_list img {
+  max-width: 100px;
+  margin-bottom: 10px;
+}
+
+.login_list h4 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.login_list .t_red {
+  color: red;
+}
+
+.non_login_form {
+  display: flex;
+  align-items: center;
+}
+
+.non_login_form select {
+  margin-right: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 60px;
+}
+
+.non_login_form div {
+  display: flex;
+  flex-direction: column;
+}
+
+.non_login_form input {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 300px;
+}
+
+.non_login_form .button.red {
+  margin-top: -9px;
+  background-color: red;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  text-align: center;
+  margin-left: 5px;
+}
+
+.non_login_form .button.red span {
+  margin-left: 5px;
+}
+
+/* @@@@@@@@@@@@@@@@@로그인 끝@@@@@@@@@@@@@@@@@ */
+/* %%%%%%%%%%%%%%%%%회원가입 끝%%%%%%%%%%%%%%%% */
+.container {
+  z-index: 0;
+  max-width: 100vw; /* 화면 너비를 초과하지 않도록 설정 */
+  height: 100%;
+  overflow: visible;
+}
+#content {
+  max-width: 100%;
+  overflow: hidden;
+}
+html {
+  overflow: hidden;
+}
+.line_tit {
+  border-bottom: 1px solid #000;
+  font-size: 18px;
+  margin-top: 20px;
+}
+.agree_all {
+  border-bottom: 1px solid #000;
+  font-weight: bold;
+  font-size: 14px;
+}
+.join_form input[type="checkbox"] {
+  z-index: 12;
+  width: 20px;
+  height: 20px;
+  border-radius: 0;
+  border-color: #8c8c8c;
+}
+.txt_terms {
+  font-size: 15px;
+  margin-top: 15px;
+}
+.txt,
+.t_red {
+  font-size: 12px;
+}
+
+.join_button {
+  position: relative;
+  height: 33px;
+  line-height: 33px;
+  border: 1px solid #514f4f;
+  border-radius: 3px;
+  background: #514f4f;
+  text-align: center;
+  color: #fff;
+  font-size: 15px;
+  padding: 0 20px;
+  vertical-align: middle;
+  font-family: NGBold;
+  float: right; /* 버튼을 오른쪽으로 정렬 */
+  margin-left: 10px; /* 버튼 간 간격 조정 (필요에 따라) */
+}
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"] {
+  display: inline-block;
+  height: 20px;
+  padding: 5px 6px;
+  /* font-size: 14px; */
+  line-height: 23px;
+  border: 1px solid #cccccc;
+  -webkit-transition-duration: 0.1s;
+  -moz-transition-duration: 0.1s;
+  -o-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+  vertical-align: middle;
+  width: 250px;
+  margin-bottom: 10px;
+}
+.sel1 {
+  width: 100px; /* 셀렉트 박스 너비 설정 */
+  height: 31px; /* 높이 조정 */
+  padding: 5px 10px; /* 패딩 조정 */
+  line-height: 36px; /* 높이에 맞게 설정 */
+  border: 1px solid #cccccc;
+  background: #dddcdc;
+  transition-duration: 0.1s;
+  vertical-align: middle;
+  margin-right: 2%;
+}
+.sel2 {
+  width: 150px; /* 셀렉트 박스 너비 설정 */
+  height: 35px; /* 높이 조정 */
+  padding: 5px 10px; /* 패딩 조정 */
+  line-height: 36px; /* 높이에 맞게 설정 */
+  border: 1px solid #cccccc;
+  background: #dddcdc;
+  transition-duration: 0.1s;
+  vertical-align: middle;
+}
+.inp2 {
+  width: 150px !important;
+  margin-right: 2%;
+}
+.inp2.inp_use {
+  margin-left: 0px; /* 왼쪽으로 이동시키기 위해 마진 설정 */
+}
+.ml6 {
+  margin-left: 6px;
+  margin-right: 20px; /* 왼쪽에 6px의 마진을 추가 */
+  font-size: 15px;
+}
+/* 버튼 스타일 */
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 20px;
+  border: 1px solid #514f4f;
+  border-radius: 3px;
+  background: #514f4f;
+  color: #fff;
+  font-size: 11px;
+  text-align: center;
+  text-decoration: none;
+  font-family: NGBold;
+  transition: background 0.3s ease;
+}
+
+.pre-btn-area {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.info-content {
+  width: 300px;
+}
+
+.w100 {
+  height: 35px;
+}
+
+.bullet_red {
+  padding-left: 10px;
+  background: url(//cdn.mrpizza.co.kr/2014_resources/images/common/bullet_red.gif)
+    no-repeat left 9px;
+  font-size: 15px;
+}
+
+.mt25 strong {
+  font-size: 20px;
+  font-weight: bold !important;
+}
+.mt5 {
+  font-size: 15px;
+}
+
+/* 마케팅활용동의 테이블 */
+.tbl_style {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border: 1px solid #cccccc;
+  border-top: 2px solid #000;
+}
+
+.tbl_style caption {
+  display: none; /* 캡션 숨기기 */
+}
+
+.tbl_style th,
+.tbl_style td {
+  border: 1px solid #cccccc; /* 셀 테두리 설정 */
+  padding: 10px; /* 셀 안쪽 여백 설정 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  vertical-align: middle; /* 셀 내용 수직 정렬 */
+  font-size: 15px;
+}
+
+.tbl_style th {
+  background-color: #f7f7f7; /* 헤더 셀 배경색 설정 */
+  font-weight: bold; /* 헤더 셀 글꼴 두껍게 */
+  border-top: 2px solid #000;
+}
+
+.hide {
+  position: absolute; /* 절대 위치 설정 */
+  clip: rect(0, 0, 0, 0); /* 화면에서 텍스트를 숨기기 */
+  width: 1px; /* 최소 크기로 설정 */
+  height: 1px; /* 최소 크기로 설정 */
+  overflow: hidden; /* 넘치는 부분 숨기기 */
+  white-space: nowrap; /* 줄바꿈 방지 */
+}
+
+.lbl {
+  font-size: 12px;
+}
+
+.mt10 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 100%; /* 부모 요소 크기 제한 */
+}
+
+.mt10 label {
+  display: inline;
+}
+
+/* 빨간색 버튼 스타일 */
+.red {
+  background-color: #ff0000;
+  color: #ffffff;
+}
+
+.red:hover {
+  background-color: #cc0000;
+}
+
+/* 높이 45px */
+.h45 {
+  height: 50px;
+  line-height: 45px;
+}
+
+/* 너비 170px */
+.w170 {
+  width: 170px;
+}
+
+/* %%%%%%%%%%%%%%%%%회원가입 끝%%%%%%%%%%%%%%%% */
+
+/* *********메뉴리스트 시작********** */
+.menu_category_loca_wrap {
+  border-bottom: 1px solid #cbcbcb;
+}
+.menu_category_loca_wrap > div {
+  width: 780px;
+  margin: 0 auto;
+  padding-left: 250px;
+  position: relative;
+  height: 122px;
+}
+.menu_category_loca_wrap .menu_category {
+  padding-top: 62px;
+  text-align: center;
+}
+.menu_category_loca_wrap .menu_category li {
+  display: inline-block;
+}
+.menu_category_loca_wrap .menu_category li + li {
+  margin-left: 16px;
+}
+.menu_category_loca_wrap .menu_category li a {
+  display: block;
+  width: 160px;
+  height: 36px;
+  line-height: 34px;
+  border: 1px solid #ccc;
+  font-size: 20px;
+  color: #000;
+  border-radius: 20px;
+  box-sizing: border-box;
+  font-weight: 500;
+}
+.menu_category_loca_wrap .menu_category li a.on {
+  border-width: 2px;
+  border-color: #cb1919;
+  color: #cb1919;
+  line-height: 32px;
+}
+.menu_category_loca_wrap #location {
+  top: 17px;
+}
+.menu_category_loca_wrap + #container {
+  padding-top: 0;
+}
+.lnb_sort {
+  margin-top: 82px;
+  border: 1px solid #eeeeee;
+}
+.lnb_sort > h2 {
+  padding: 0 14px;
+  line-height: 43px;
+  background: #eeeeee;
+  font-size: 16px;
+}
+.lnb_sort > div {
+  padding: 15px 12px 7px;
+}
+
+.menu-lab {
+  flex: 0 0 auto;
+}
+
+.contents {
+  margin-left: 20px; /* contents와 약간의 간격을 줍니다 */
+  display: flex;
+  align-items: center; /* 수직 중앙 정렬 */
+}
+
+.search-store {
+  height: 33px;
+  justify-content: center;
+}
+
+.search-area {
+  margin-bottom: 20px;
+}
+
+.search-area .search-store {
+  margin: 0;
+}
+
+.search-area .select-address1,
+.select-address2 {
+  width: 150px;
+  height: 30px;
+  margin: 0;
+  margin-left: 5px;
+}
+.select-address-area {
+  margin-left: 20px;
+  display: inline;
+}
+.result-store {
+  background-color: #eeeeee;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.result-store .result-store-strong {
+  font-size: 15px;
+  color: #cb1919;
+  font-weight: bold;
+  margin-left: 10px;
+}
+.map-area #map {
+  width: 779px;
+  height: 300px;
+  border: 1px solid #cccccc;
+}
+.store_info {
+  margin-top: 50px;
+  padding: 0 20px;
+  overflow: hidden;
+}
+.f_left {
+  float: left;
+}
+.f_right {
+  float: right;
+  margin-right: 100px;
+}
+.store_info .f_left {
+  width: 250px;
+}
+.store_info .f_right {
+  width: 250px;
+}
+.store_info .f_right > div {
+  padding: 20px;
+  border-top: 2px solid #666666;
+  background: #f7f7f7;
+}
+.store_info .cont_tit {
+  margin-bottom: 20px;
+}
+.store_info .ico {
+  margin-right: 5px;
+}
+.store_info .tbl_style tbody th {
+  padding: 10px;
+}
+.store-name {
+  white-space: nowrap;
+}
+.st_tbl_style {
+  border-top: 2px solid #666666;
+  font-size: 15px;
+}
+.st_tbl_style th {
+  font-size: 13px;
+  white-space: nowrap;
+  text-align: left;
+}
+.st_tbl_style td {
+  font-size: 13px;
+}
+.st_tbl_style th,
+td {
+  border-bottom: 1px solid #cccccc;
+  padding: 5px;
+}
+.bggy {
+  background-color: #f7f7f7;
+}
+/* *********메뉴리스트 끝********** */
+.button.white {
+  color: #000000;
+  border-color: #b1b1b3;
+  background: #fff;
+}
+.button.h25 {
+  height: 23px;
+  line-height: 23px;
+  font-size: 12px;
+  padding: 0 10px;
+}
+.w60 {
+  width: 60px;
+}
