@@ -240,7 +240,7 @@ function App() {
       <DropDown closeDropdown={closeDropdown} isOpen={isOpen} />
       <SideBar logout={logout} cartList={cartList} />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/MipiFront" element={<Home />} />
         <Route path="/JoinForm" element={<JoinForm joinProc={joinProc} />} />
         <Route
           path="/LoginForm"
