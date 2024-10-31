@@ -88,6 +88,7 @@ function LoginForm({ loginProc }) {
                       name="input_user_id"
                       placeholder="아이디"
                       title="아이디 입력"
+                      value="test"
                       maxLength="16"
                       ref={userId}
                     />
@@ -99,6 +100,7 @@ function LoginForm({ loginProc }) {
                       name="input_user_pwd"
                       placeholder="비밀번호"
                       title="비밀번호 입력"
+                      value="test"
                       maxLength="16"
                       ref={password}
                     />
