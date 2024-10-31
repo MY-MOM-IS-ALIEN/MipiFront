@@ -13,7 +13,7 @@ const Header = ({ toggleDropdown, oderModal, cartList }) => {
   return (
     <header className="header">
       <div className="header__logo">
-        <a href="/">
+        <a href="/MipiFront">
           <img
             src="https://cdn.mrpizza.co.kr/2023_resources/images/common/logo_pc.jpg"
             alt="Mr.Pizza Logo"

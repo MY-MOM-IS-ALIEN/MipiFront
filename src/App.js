@@ -24,7 +24,84 @@ import MyOrder from "./component/MyOrder";
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
-  const [pizzaList, setPizzaList] = useState([]);
+  const [pizzaList, setPizzaList] = useState([
+    {
+      ID: 1,
+      BOARD_TITLE: "시크릿가든",
+      BOARD_CONTENT:
+        "케이준치킨과 시금치로 더 라이트하고 담백하게 즐길 수 있는 웰빙 피자!",
+      BOARD_M_PRICE: 10000,
+      BOARD_INFO: "담백한 웰빙피자!",
+      BOARD_SIZE1: "M",
+      BOARD_L_PRICE: 20000,
+      BOARD_IMG:
+        "https://cdn.mrpizza.co.kr/2011/uploadV1/product_new/20243713488592.jpg",
+      BOARD_SIZE2: "L",
+    },
+    {
+      ID: 2,
+      BOARD_TITLE: "미트러버",
+      BOARD_CONTENT:
+        "다양한 육류 토핑이 가득한 미트러버! 육즙 가득한 고기의 풍미를 만끽하세요.",
+      BOARD_M_PRICE: 12000,
+      BOARD_INFO: "육류가 가득한 피자!",
+      BOARD_SIZE1: "M",
+      BOARD_L_PRICE: 25000,
+      BOARD_IMG:
+        "https://cdn.mrpizza.co.kr/2011/uploadV1/product_new/20243792316094.jpg",
+      BOARD_SIZE2: "L",
+    },
+    {
+      ID: 3,
+      BOARD_TITLE: "베지터블",
+      BOARD_CONTENT:
+        "신선한 채소와 풍부한 맛의 조화! 베지터블로 건강하고 맛있게.",
+      BOARD_M_PRICE: 9000,
+      BOARD_INFO: "신선한 채소가 가득한 피자!",
+      BOARD_SIZE1: "M",
+      BOARD_L_PRICE: 18000,
+      BOARD_IMG:
+        "https://cdn.mrpizza.co.kr/2011/uploadV1/product_new/20201112153536343.jpg",
+      BOARD_SIZE2: "L",
+    },
+    {
+      ID: 4,
+      BOARD_TITLE: "페퍼로니",
+      BOARD_CONTENT: "매콤하고 짭짤한 페퍼로니가 특징인 클래식 피자.",
+      BOARD_M_PRICE: 11000,
+      BOARD_INFO: "매콤한 페퍼로니 피자!",
+      BOARD_SIZE1: "M",
+      BOARD_L_PRICE: 22000,
+      BOARD_IMG:
+        "https://cdn.mrpizza.co.kr/2011/uploadV1/product_new/20207131895047.jpg",
+      BOARD_SIZE2: "L",
+    },
+    {
+      ID: 5,
+      BOARD_TITLE: "하와이안",
+      BOARD_CONTENT: "달콤한 파인애플과 햄의 조화가 일품인 하와이안 피자.",
+      BOARD_M_PRICE: 9500,
+      BOARD_INFO: "달콤한 파인애플과 햄의 피자!",
+      BOARD_SIZE1: "M",
+      BOARD_L_PRICE: 19000,
+      BOARD_IMG:
+        "https://cdn.mrpizza.co.kr/2011/uploadV1/product_new/2023316133821010.png",
+      BOARD_SIZE2: "L",
+    },
+    {
+      ID: 6,
+      BOARD_TITLE: "고르곤졸라",
+      BOARD_CONTENT: "짭짤하고 크리미한 고르곤졸라 치즈가 가득!",
+      BOARD_M_PRICE: 13000,
+      BOARD_INFO: "풍부한 치즈의 맛!",
+      BOARD_SIZE1: "M",
+      BOARD_L_PRICE: 27000,
+      BOARD_IMG:
+        "https://cdn.mrpizza.co.kr/2011/uploadV1/product_new/2018530133324258.jpg",
+      BOARD_SIZE2: "L",
+    },
+  ]);
+
   const [error, setError] = useState(null);
   const [cartList, setCartList] = useState([]);
   const [openOderModal, setOpenOderModal] = useState(false);
@@ -100,17 +177,17 @@ function App() {
       });
   }, [location.pathname]);
 
-  useEffect(() => {
-    fetch("/getPizzaList")
-      .then((res) => res.json())
-      .then((data) => {
-        setPizzaList(data);
-      })
-      .catch((error) => {
-        setError(error.toString());
-        console.error("Fetch error:", error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("/getPizzaList")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setPizzaList(data);
+  //     })
+  //     .catch((error) => {
+  //       setError(error.toString());
+  //       console.error("Fetch error:", error);
+  //     });
+  // }, []);
 
   const toggleDropdown = () => {
     setIsOpen((prevIsOpen) => !prevIsOpen);

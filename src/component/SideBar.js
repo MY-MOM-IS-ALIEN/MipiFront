@@ -37,7 +37,7 @@ function SideBar({ logout, cartList }) {
                 <span>회원가입</span>
               </Link>
             ) : (
-              <Link to="/">
+              <Link to="/MipiFront">
                 <img src="https://cdn.mrpizza.co.kr/2014_resources/images/common/ico_quick_02.png" />
                 <span>회원가입</span>
               </Link>
