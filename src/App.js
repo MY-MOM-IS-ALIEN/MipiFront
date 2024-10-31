@@ -24,6 +24,32 @@ import MyOrder from "./component/MyOrder";
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
+  const [error, setError] = useState(null);
+  const [cartList, setCartList] = useState([]);
+  const [openOderModal, setOpenOderModal] = useState(false);
+  const stores = [
+    {
+      name: "서울지점",
+      lat: 37.4799696,
+      lng: 126.8825073,
+      tel: "02-1111-1111",
+      address: "서울특별시 금천구 가산동 371-28",
+    }, // 서울
+    {
+      name: "인천지점",
+      lat: 37.4927365,
+      lng: 126.7285634,
+      tel: "032-222-2222",
+      address: "인천광역시 부평구 부평동 568-1",
+    }, // 인천
+    {
+      name: "부산지점",
+      lat: 35.154835,
+      lng: 129.0600326,
+      tel: "051-333-3333",
+      address: "부산광역시 부산진구 전포동 171-2 ",
+    }, // 부산
+  ];
   const [pizzaList, setPizzaList] = useState([
     {
       ID: 1,
@@ -101,33 +127,14 @@ function App() {
       BOARD_SIZE2: "L",
     },
   ]);
-
-  const [error, setError] = useState(null);
-  const [cartList, setCartList] = useState([]);
-  const [openOderModal, setOpenOderModal] = useState(false);
-  const stores = [
-    {
-      name: "서울지점",
-      lat: 37.4799696,
-      lng: 126.8825073,
-      tel: "02-1111-1111",
-      address: "서울특별시 금천구 가산동 371-28",
-    }, // 서울
-    {
-      name: "인천지점",
-      lat: 37.4927365,
-      lng: 126.7285634,
-      tel: "032-222-2222",
-      address: "인천광역시 부평구 부평동 568-1",
-    }, // 인천
-    {
-      name: "부산지점",
-      lat: 35.154835,
-      lng: 129.0600326,
-      tel: "051-333-3333",
-      address: "부산광역시 부산진구 전포동 171-2 ",
-    }, // 부산
-  ];
+  const testIdPw = {
+    ID: 1,
+    MEMBER_ID: "test",
+    MEMBER_PASSWORD: "test",
+    MEMBER_ADRESS: "서울 특별시 가산디지털1로 168",
+    MEMBER_NAME: "방문자",
+    MEMBER_PHONE: "010-1234-1234",
+  };
 
   // Haversine 공식을 이용한 거리 계산 함수
   function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
@@ -201,7 +208,7 @@ function App() {
     sessionStorage.removeItem("isLogin");
     sessionStorage.removeItem("logedInUser");
     alert("로그아웃되었습니다.");
-    window.location.href = "/";
+    window.location.href = "/MipiFront";
   };
 
   const joinProc = async (user) => {
@@ -232,49 +239,71 @@ function App() {
       alert("오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
+  const loginProc = (loginUser) => {
+    console.log("로그인 시도" + loginUser.ID + loginUser.PASSWORD);
 
-  const loginProc = async (loginUser) => {
-    try {
-      console.log("로그인프로세스::::::::::");
-      console.log("로그인 할" + loginUser);
-
-      // POST 요청을 보냄
-      const response = await fetch("/reactLoginProc", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(loginUser),
-      });
-
-      // 네트워크 응답이 정상인지 확인
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
+    if (loginUser != undefined) {
+      if (loginUser.ID != undefined && loginUser.PASSWORD != undefined) {
+        if (
+          loginUser.ID === testIdPw.MEMBER_ID &&
+          loginUser.PASSWORD === testIdPw.MEMBER_PASSWORD
+        ) {
+          setIsLogin(true);
+          sessionStorage.setItem("isLogin", isLogin);
+          sessionStorage.setItem("logedInUser", JSON.stringify(testIdPw));
+          alert("환영합니다 " + testIdPw.MEMBER_NAME + "님!");
+          window.location.href = "/MipiFront";
+        } else {
+          alert("아이디 또는 비밀번호가 틀렸습니다.");
+        }
       }
-
-      // 서버 응답을 JSON으로 파싱
-      const result = await response.json();
-      console.log("Success:", result);
-
-      // 서버에서 반환한 응답을 바탕으로 동작 결정
-      if (
-        result.user != null &&
-        result.user != "" &&
-        result.user != undefined
-      ) {
-        setIsLogin(true);
-        sessionStorage.setItem("isLogin", isLogin);
-        sessionStorage.setItem("logedInUser", JSON.stringify(result.user));
-        console.log("받아온 정보", JSON.stringify(result.user));
-        window.location.href = "/";
-      } else {
-        alert(result.message);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("오류가 발생했습니다. 다시 시도해주세요.");
+    } else {
+      alert("아이디 또는 비밀번호를 입력해주세요.");
     }
   };
+
+  // const loginProc = async (loginUser) => {
+  //   try {
+  //     console.log("로그인프로세스::::::::::");
+  //     console.log("로그인 할" + loginUser);
+
+  //     // POST 요청을 보냄
+  //     const response = await fetch("/reactLoginProc", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(loginUser),
+  //     });
+
+  //     // 네트워크 응답이 정상인지 확인
+  //     if (!response.ok) {
+  //       throw new Error("Network response was not ok");
+  //     }
+
+  //     // 서버 응답을 JSON으로 파싱
+  //     const result = await response.json();
+  //     console.log("Success:", result);
+
+  //     // 서버에서 반환한 응답을 바탕으로 동작 결정
+  //     if (
+  //       result.user != null &&
+  //       result.user != "" &&
+  //       result.user != undefined
+  //     ) {
+  //       setIsLogin(true);
+  //       sessionStorage.setItem("isLogin", isLogin);
+  //       sessionStorage.setItem("logedInUser", JSON.stringify(result.user));
+  //       console.log("받아온 정보", JSON.stringify(result.user));
+  //       window.location.href = "/";
+  //     } else {
+  //       alert(result.message);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     alert("오류가 발생했습니다. 다시 시도해주세요.");
+  //   }
+  // };
 
   const insertCart = async (cartList) => {
     try {

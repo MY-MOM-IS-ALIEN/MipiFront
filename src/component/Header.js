@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 
 const Header = ({ toggleDropdown, oderModal, cartList }) => {
   const loginedUser = JSON.parse(sessionStorage.getItem("logedInUser"));
+  console.log(loginedUser);
   const cartSize = cartList
     .filter((el) => el.ID === (loginedUser ? loginedUser.MEMBER_ID : null))
     .reduce((sum, el) => sum + el.CART_COUNT, 0);

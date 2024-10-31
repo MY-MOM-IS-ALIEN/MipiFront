@@ -13,11 +13,10 @@ function LoginForm({ loginProc }) {
       alert("정보를 입력해주세요");
     } else {
       const loginUser = {
-        custId: userId.current.value,
-        password: password.current.value,
+        ID: userId.current.value,
+        PASSWORD: password.current.value,
       };
       loginProc(loginUser);
-      console.log("여기걸림");
     }
   };
   return (
