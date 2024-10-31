@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/MipiFront/static/css/main.bcba0d29.css",
-    "main.js": "/MipiFront/static/js/main.f50555ec.js",
+    "main.js": "/MipiFront/static/js/main.01ac631d.js",
     "static/js/453.590b3e1b.chunk.js": "/MipiFront/static/js/453.590b3e1b.chunk.js",
     "static/media/slick.svg": "/MipiFront/static/media/slick.2630a3e3eab21c607e21.svg",
     "static/media/slick.eot": "/MipiFront/static/media/slick.a4e97f5a2a64f0ab1323.eot",
@@ -9,11 +9,11 @@
     "static/media/slick.woff": "/MipiFront/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/MipiFront/index.html",
     "main.bcba0d29.css.map": "/MipiFront/static/css/main.bcba0d29.css.map",
-    "main.f50555ec.js.map": "/MipiFront/static/js/main.f50555ec.js.map",
+    "main.01ac631d.js.map": "/MipiFront/static/js/main.01ac631d.js.map",
     "453.590b3e1b.chunk.js.map": "/MipiFront/static/js/453.590b3e1b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.bcba0d29.css",
-    "static/js/main.f50555ec.js"
+    "static/js/main.01ac631d.js"
   ]
 }
