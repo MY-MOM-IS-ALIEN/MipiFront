@@ -127,14 +127,18 @@ function App() {
       BOARD_SIZE2: "L",
     },
   ]);
-  const testIdPw = {
-    ID: 1,
-    MEMBER_ID: "test",
-    MEMBER_PASSWORD: "test",
-    MEMBER_ADRESS: "서울 특별시 가산디지털1로 168",
-    MEMBER_NAME: "방문자",
-    MEMBER_PHONE: "010-1234-1234",
-  };
+  const initialUsers = JSON.parse(sessionStorage.getItem("testIdPw")) || [
+    {
+      ID: 1,
+      MEMBER_ID: "test",
+      MEMBER_PASSWORD: "test",
+      MEMBER_ADRESS: "서울 특별시 가산디지털1로 168",
+      MEMBER_NAME: "방문자",
+      MEMBER_PHONE: "010-1234-1234",
+    },
+  ];
+
+  const [testIdPw, setTestIdPw] = useState(initialUsers);
 
   // Haversine 공식을 이용한 거리 계산 함수
   function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
@@ -170,19 +174,19 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    fetch("/getCartList", {
-      method: "POST",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setCartList(data);
-      })
-      .catch((error) => {
-        setError(error.toString());
-        console.error("Fetch error:", error);
-      });
-  }, [location.pathname]);
+  // useEffect(() => {
+  //   fetch("/getCartList", {
+  //     method: "POST",
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setCartList(data);
+  //     })
+  //     .catch((error) => {
+  //       setError(error.toString());
+  //       console.error("Fetch error:", error);
+  //     });
+  // }, [location.pathname]);
 
   // useEffect(() => {
   //   fetch("/getPizzaList")
@@ -211,51 +215,83 @@ function App() {
     window.location.href = "/MipiFront";
   };
 
-  const joinProc = async (user) => {
-    try {
-      const response = await fetch("/joinProc", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
+  // const joinProc = async (user) => {
+  //   try {
+  //     const response = await fetch("/joinProc", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(user),
+  //     });
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
+  //     if (!response.ok) {
+  //       throw new Error("Network response was not ok");
+  //     }
 
-      const result = await response.json();
-      console.log("Success:", result);
+  //     const result = await response.json();
+  //     console.log("Success:", result);
 
-      if (result.status === "ok") {
-        alert("가입 완료");
-        window.location.href = "/LoginForm";
-      } else {
-        alert("가입 실패. 다시 시도해주세요.");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("오류가 발생했습니다. 다시 시도해주세요.");
+  //     if (result.status === "ok") {
+  //       alert("가입 완료");
+  //       window.location.href = "/LoginForm";
+  //     } else {
+  //       alert("가입 실패. 다시 시도해주세요.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     alert("오류가 발생했습니다. 다시 시도해주세요.");
+  //   }
+  // };
+
+  const joinProc = (user) => {
+    if (user) {
+      const newUser = {
+        ID: testIdPw.length + 1,
+        MEMBER_ID: user.custId,
+        MEMBER_PASSWORD: user.password,
+        MEMBER_ADRESS: user.adress,
+        MEMBER_NAME: user.name,
+        MEMBER_PHONE: user.phone,
+      };
+
+      const updatedUsers = [...testIdPw, newUser];
+      setTestIdPw(updatedUsers);
+
+      sessionStorage.setItem("testIdPw", JSON.stringify(updatedUsers));
+
+      alert("가입 완료.");
+      window.location.href = "/MipiFront";
+    } else {
+      alert("가입 정보를 확인해주세요.");
     }
   };
-  const loginProc = (loginUser) => {
-    console.log("로그인 시도" + loginUser.ID + loginUser.PASSWORD);
 
-    if (loginUser != undefined) {
-      if (loginUser.ID != undefined && loginUser.PASSWORD != undefined) {
-        if (
-          loginUser.ID === testIdPw.MEMBER_ID &&
-          loginUser.PASSWORD === testIdPw.MEMBER_PASSWORD
-        ) {
-          setIsLogin(true);
-          sessionStorage.setItem("isLogin", isLogin);
-          sessionStorage.setItem("logedInUser", JSON.stringify(testIdPw));
-          alert("환영합니다 " + testIdPw.MEMBER_NAME + "님!");
-          window.location.href = "/MipiFront";
-        } else {
-          alert("아이디 또는 비밀번호가 틀렸습니다.");
-        }
+  // 상태 변경 시 sessionStorage 업데이트
+  useEffect(() => {
+    sessionStorage.setItem("testIdPw", JSON.stringify(testIdPw));
+  }, [testIdPw]);
+
+  const loginProc = (loginUser) => {
+    console.log("로그인 시도: " + loginUser.ID + ", " + loginUser.PASSWORD);
+    console.log(testIdPw);
+
+    if (loginUser && loginUser.ID && loginUser.PASSWORD) {
+      const user = testIdPw.find(
+        (el) =>
+          el.MEMBER_ID === loginUser.ID &&
+          el.MEMBER_PASSWORD === loginUser.PASSWORD
+      );
+
+      if (user) {
+        setIsLogin(true);
+        sessionStorage.setItem("isLogin", true);
+        sessionStorage.setItem("logedInUser", JSON.stringify(user));
+
+        alert("환영합니다 " + user.MEMBER_NAME + "님!");
+        window.location.href = "/MipiFront";
+      } else {
+        alert("아이디 또는 비밀번호가 틀렸습니다.");
       }
     } else {
       alert("아이디 또는 비밀번호를 입력해주세요.");
@@ -305,32 +341,36 @@ function App() {
   //   }
   // };
 
-  const insertCart = async (cartList) => {
-    try {
-      const response = await fetch("/insertCart", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(cartList),
-      });
+  // const insertCart = async (cartList) => {
+  //   try {
+  //     const response = await fetch("/insertCart", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(cartList),
+  //     });
 
-      if (!response.ok) {
-        throw new Error("인서트요청 중 에러");
-      }
+  //     if (!response.ok) {
+  //       throw new Error("인서트요청 중 에러");
+  //     }
 
-      const result = await response.json();
-      console.log("Response result:", result);
-      if (result.status === "ok") {
-        alert(result.message);
-      } else if (result.status === "done") {
-      } else {
-        alert(result.message);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("오류가 발생했습니다. 다시 시도해주세요.");
-    }
+  //     const result = await response.json();
+  //     console.log("Response result:", result);
+  //     if (result.status === "ok") {
+  //       alert(result.message);
+  //     } else if (result.status === "done") {
+  //     } else {
+  //       alert(result.message);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     alert("오류가 발생했습니다. 다시 시도해주세요.");
+  //   }
+  // };
+
+  const insertCart = (cartList) => {
+    console.log(cartList);
   };
 
   return (

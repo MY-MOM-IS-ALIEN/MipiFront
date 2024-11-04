@@ -78,6 +78,7 @@ function LoginForm({ loginProc }) {
           <input type="hidden" id="reurl" name="reurl" value="" />
           <div id="tab01" className="tab_cont">
             <h2 className="tit">LOGIN</h2>
+
             <div className="login_wrap">
               <div className="login_box">
                 <ul id="login_ul">
@@ -88,7 +89,6 @@ function LoginForm({ loginProc }) {
                       name="input_user_id"
                       placeholder="아이디"
                       title="아이디 입력"
-                      value="test"
                       maxLength="16"
                       ref={userId}
                     />
@@ -100,7 +100,6 @@ function LoginForm({ loginProc }) {
                       name="input_user_pwd"
                       placeholder="비밀번호"
                       title="비밀번호 입력"
-                      value="test"
                       maxLength="16"
                       ref={password}
                     />
@@ -125,6 +124,7 @@ function LoginForm({ loginProc }) {
                       />
                       <span className="lbl">아이디저장</span>
                     </label>
+
                     <a
                       href="https://sepay.org/spm/join?regSiteCode=NM&ctgCode=1&subCode=1"
                       className="btn_login_phone"
@@ -135,6 +135,10 @@ function LoginForm({ loginProc }) {
                       />
                     </a>
                   </li>
+                  <span className="test">
+                    test용 계정 <br />
+                    ID : test || PW : test
+                  </span>
                 </ul>
               </div>
               <p

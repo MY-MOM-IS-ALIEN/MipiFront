@@ -33,6 +33,20 @@ function JoinForm({ joinProc }) {
   const location = useLocation();
   const pathName = location.pathname;
 
+  const idDuplicate = () => {
+    const users = JSON.parse(sessionStorage.getItem("testIdPw"));
+    const resultId = users.find((el) => el.MEMBER_ID === userId.current.value);
+    const Idinput = document.getElementById("cust_id");
+    if (userId.current.value != null && userId.current.value != undefined) {
+      if (resultId) {
+        Idinput.value = "";
+        alert("이미 존재하는 ID입니다.");
+      } else {
+        alert("사용 가능한 ID입니다.");
+      }
+    }
+  };
+
   const loadPostcode = () => {
     const script = document.createElement("script");
     script.src =
@@ -154,12 +168,16 @@ function JoinForm({ joinProc }) {
   const idCheck = () => {
     const custId = userId.current.value;
     const regex = /^[a-zA-Z0-9]{6,}$/;
+    const idDuplicateBtn = document.querySelector(".Dbtn");
     if (custId === null || custId === "") {
       setIsEmail("");
+      idDuplicateBtn.disabled = true;
     } else if (regex.test(custId)) {
       setIsEmail("valid");
+      idDuplicateBtn.disabled = false;
     } else {
       setIsEmail("invalid");
+      idDuplicateBtn.disabled = true;
     }
   };
 
@@ -212,6 +230,10 @@ function JoinForm({ joinProc }) {
             </a>
           </li>
         </ul>
+        <span className="test">
+          test용 계정 <br />
+          ID : test || PW : test
+        </span>
       </aside>
 
       <section id="join-contents">
@@ -249,7 +271,7 @@ function JoinForm({ joinProc }) {
             </label>
           </p>
           <article className="txt_terms">
-            <p className="mt10">
+            <p className="mt110">
               <label>
                 <input
                   id="agree_chk"
@@ -269,7 +291,7 @@ function JoinForm({ joinProc }) {
                 약관 전체보기
               </a>
             </p>
-            <p className="mt10">
+            <p className="mt110">
               <label>
                 <input
                   id="agree_chk2"
@@ -291,7 +313,7 @@ function JoinForm({ joinProc }) {
                 약관 전체보기
               </a>
             </p>
-            <p className="mt10">
+            <p className="mt110">
               <label>
                 <input
                   id="agree_chk3"
@@ -331,7 +353,7 @@ function JoinForm({ joinProc }) {
               required
             />
           </p>
-          <div className="mt10 tip_box">
+          <div className="mt110 tip_box">
             <input
               type="text"
               className="inp1 inp_use"
@@ -343,13 +365,21 @@ function JoinForm({ joinProc }) {
               title="아이디 입력"
               placeholder="아이디 입력, 6-12자리로 아이디 생성"
             />
+            <button
+              type="button"
+              className="button Dbtn"
+              onClick={idDuplicate}
+              style={{ width: "150px", height: "35px", marginLeft: "5px" }}
+            >
+              중복확인
+            </button>
             {isEmail === "invalid" && (
               <p style={{ color: "red" }}>
                 아이디는 영어와 숫자로 이루어진 6-12자리 이상이어야 합니다.
               </p>
             )}
           </div>
-          <p className="mt10 f12">
+          <p className="mt110 f12">
             <span id="resultID" style={{ visibility: "hidden" }}>
               *사용 가능한 아이디입니다.
             </span>
@@ -368,7 +398,7 @@ function JoinForm({ joinProc }) {
               placeholder="비밀번호 입력, 6-12자리 영문,숫자 조합"
             />
           </div>
-          <p className="mt10">
+          <div className="mt110">
             <input
               type="password"
               className="inp1 inp_use"
@@ -381,19 +411,21 @@ function JoinForm({ joinProc }) {
               placeholder="비밀번호 재입력"
             />
             {isPassword === "invalid" && (
-              <p style={{ color: "red" }}>
-                패스워드는 영어와 숫자로 이루어진 6-12자리 이상이어야 합니다.
-              </p>
+              <div style={{ color: "red" }}>
+                <span>
+                  패스워드는 영어와 숫자로 이루어진 6-12자리 이상이어야 합니다.
+                </span>
+              </div>
             )}
             {isDifferent === "invalid" && (
-              <p style={{ color: "red" }}>패스워드가 동일하지 않습니다.</p>
+              <div style={{ color: "red" }}>패스워드가 동일하지 않습니다.</div>
             )}
-          </p>
-          <p className="mt10 f12">
+          </div>
+          <div className="mt110 f12">
             <span id="resultPwd" style={{ visibility: "hidden" }}>
               6-12자의 영문,숫자로 만들어주세요.
             </span>
-          </p>
+          </div>
 
           <p className="mt20">
             <select
@@ -488,7 +520,7 @@ function JoinForm({ joinProc }) {
                 주소찾기<span className="gt">&gt;</span>
               </a>
             </p>
-            <p className="mt10">
+            <p className="mt110">
               <input
                 type="text"
                 className="inp4 inp_use"
@@ -517,7 +549,6 @@ function JoinForm({ joinProc }) {
           </p>
           <div className="agree2">
             <table className="tbl_style line mt20">
-              <caption>마케팅 활용 동의 테이블</caption>
               <colgroup>
                 <col style={{ width: "20%" }} />
                 <col style={{ width: "20%" }} />
@@ -525,92 +556,94 @@ function JoinForm({ joinProc }) {
                 <col style={{ width: "20%" }} />
                 <col style={{ width: "20%" }} />
               </colgroup>
-              <tr>
-                <th rowSpan="2">
-                  동의함 <br />
-                  <br />
-                  <label>
-                    <input
-                      id="all_chk_marketing"
-                      name="all_chk_marketing"
-                      type="checkbox"
-                      className="checkbox"
-                      checked={allCheckedMarketing}
-                      onChange={checkAllMarketing}
-                    />
-                    <span className="lbl">전체 동의</span>
-                  </label>
-                </th>
-                <td>이메일</td>
-                <td>SMS</td>
-                <td>주소(전단)</td>
-                <th>동의하지 않음</th>
-              </tr>
-              <tr>
-                <td className="bor_left">
-                  <label>
-                    <input
-                      id="event_email_check"
-                      name="event_email_check"
-                      type="checkbox"
-                      title="이메일 및 주소 수신 동의"
-                      className="checkbox mkt_chk evt_chk"
-                      checked={eventEmailCheck}
-                      onChange={handleEventEmailCheck}
-                    />
-                    <span className="lbl hide">
-                      <i>이메일 및 주소 수신 동의</i>
-                    </span>
-                  </label>
-                </td>
-                <td>
-                  <label>
-                    <input
-                      id="event_sms_check"
-                      name="event_sms_check"
-                      type="checkbox"
-                      title="SMS 수신 동의"
-                      className="checkbox mkt_chk evt_chk"
-                      checked={eventSmsCheck}
-                      onChange={handleEventSmsCheck}
-                    />
-                    <span className="lbl hide">
-                      <i>SMS 수신 동의</i>
-                    </span>
-                  </label>
-                </td>
-                <td>
-                  <label>
-                    <input
-                      id="event_dm_check"
-                      name="event_dm_check"
-                      type="checkbox"
-                      title="주소(전단)"
-                      className="checkbox mkt_chk evt_chk"
-                      checked={eventDmCheck}
-                      onChange={handleEventDmCheck}
-                    />
-                    <span className="lbl hide">
-                      <i>주소</i>
-                    </span>
-                  </label>
-                </td>
-                <td>
-                  <label>
-                    <input
-                      id="disagree"
-                      name="disagree"
-                      type="checkbox"
-                      className="checkbox"
-                      checked={disagree}
-                      onChange={handleDisagree}
-                    />
-                    <span className="lbl hide">
-                      <i>동의하지 않음</i>
-                    </span>
-                  </label>
-                </td>
-              </tr>
+              <tbody>
+                <tr>
+                  <th rowSpan="2">
+                    동의함 <br />
+                    <br />
+                    <label>
+                      <input
+                        id="all_chk_marketing"
+                        name="all_chk_marketing"
+                        type="checkbox"
+                        className="checkbox"
+                        checked={allCheckedMarketing}
+                        onChange={checkAllMarketing}
+                      />
+                      <span className="lbl">전체 동의</span>
+                    </label>
+                  </th>
+                  <td>이메일</td>
+                  <td>SMS</td>
+                  <td>주소(전단)</td>
+                  <th>동의하지 않음</th>
+                </tr>
+                <tr>
+                  <td className="bor_left">
+                    <label>
+                      <input
+                        id="event_email_check"
+                        name="event_email_check"
+                        type="checkbox"
+                        title="이메일 및 주소 수신 동의"
+                        className="checkbox mkt_chk evt_chk"
+                        checked={eventEmailCheck}
+                        onChange={handleEventEmailCheck}
+                      />
+                      <span className="lbl hide">
+                        <i>이메일 및 주소 수신 동의</i>
+                      </span>
+                    </label>
+                  </td>
+                  <td>
+                    <label>
+                      <input
+                        id="event_sms_check"
+                        name="event_sms_check"
+                        type="checkbox"
+                        title="SMS 수신 동의"
+                        className="checkbox mkt_chk evt_chk"
+                        checked={eventSmsCheck}
+                        onChange={handleEventSmsCheck}
+                      />
+                      <span className="lbl hide">
+                        <i>SMS 수신 동의</i>
+                      </span>
+                    </label>
+                  </td>
+                  <td>
+                    <label>
+                      <input
+                        id="event_dm_check"
+                        name="event_dm_check"
+                        type="checkbox"
+                        title="주소(전단)"
+                        className="checkbox mkt_chk evt_chk"
+                        checked={eventDmCheck}
+                        onChange={handleEventDmCheck}
+                      />
+                      <span className="lbl hide">
+                        <i>주소</i>
+                      </span>
+                    </label>
+                  </td>
+                  <td>
+                    <label>
+                      <input
+                        id="disagree"
+                        name="disagree"
+                        type="checkbox"
+                        className="checkbox"
+                        checked={disagree}
+                        onChange={handleDisagree}
+                      />
+                      <span className="lbl hide">
+                        <i>동의하지 않음</i>
+                      </span>
+                    </label>
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>
