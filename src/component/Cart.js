@@ -10,13 +10,15 @@ import { useState, useEffect } from "react";
 const Cart = ({ cartList, insertCart }) => {
   const location = useLocation();
   const pathName = location.pathname;
-
   const user = sessionStorage.getItem("logedInUser");
   const userObject = user ? JSON.parse(user) : null;
   const memberId = userObject?.MEMBER_ID;
 
   // 현재 로그인된 사용자(memberId)에 해당하는 cartList 필터링
-  const filteredCartList = cartList.filter((cart) => cart.ID === memberId);
+  const filteredCartList = (cartList || []).filter(
+    (cart) => cart.MEMBER_ID === memberId
+  );
+  console.log(filteredCartList);
   const [countRe, setCountRe] = useState({});
   const [countPrice, setCountPrice] = useState({});
   const [updateCart, setUpdateCart] = useState({});
@@ -286,105 +288,117 @@ const Cart = ({ cartList, insertCart }) => {
                   <th scope="col">가격</th>
                 </tr>
               </thead>
-              <tbody>
-                {filteredCartList
-                  .filter(
-                    (cart) =>
-                      countRe[cart.CART_ID] == null ||
-                      countRe[cart.CART_ID] !== 0
-                  )
-                  .map((cart) => (
-                    <tr key={cart.CART_ID}>
-                      <td>
-                        <input
-                          type="checkbox"
-                          className="ca-checkbox"
-                          style={{ width: "20px", height: "20px" }}
-                          checked={checkedItems[cart.CART_ID]?.CHECKED || false} // 개별 체크 상태
-                          onChange={(e) =>
-                            handleCheck(
+              {cartList == "" || cartList == null || cartList == undefined ? (
+                <tbody>
+                  <tr>
+                    <th scope="col" colSpan="6">
+                      장바구니가 비어있습니다.
+                    </th>
+                  </tr>
+                </tbody>
+              ) : (
+                <tbody>
+                  {filteredCartList
+                    .filter(
+                      (cart) =>
+                        countRe[cart.CART_ID] == null ||
+                        countRe[cart.CART_ID] !== 0
+                    )
+                    .map((cart) => (
+                      <tr key={cart.CART_ID}>
+                        <td>
+                          <input
+                            type="checkbox"
+                            className="ca-checkbox"
+                            style={{ width: "20px", height: "20px" }}
+                            checked={
+                              checkedItems[cart.CART_ID]?.CHECKED || false
+                            } // 개별 체크 상태
+                            onChange={(e) =>
+                              handleCheck(
+                                countPrice[cart.CART_ID] == null
+                                  ? cart.CART_PRICE
+                                  : countPrice[cart.CART_ID],
+                                e.target.checked,
+                                cart.CART_ID
+                              )
+                            }
+                          />
+                        </td>
+                        <td
+                          style={{
+                            border: "none",
+                            borderBottom: "1px solid #cccccc",
+                          }}
+                        >
+                          <img
+                            src={cart.CART_IMG}
+                            style={{ width: "150px", height: "100px" }}
+                          />
+                        </td>
+                        <td colSpan="2">
+                          <strong className="title-strong">
+                            {cart.CART_TITLE}
+                          </strong>
+                          <br />
+                          <span className="title-span">
+                            사이즈 : {cart.CART_SIZE}
+                            {cart.CART_SIZE === "M" ? "(미디움)" : "(라지)"}
+                          </span>
+                          <br />
+                          <span className="title-span">
+                            엣지 : {cart.CART_DOW}
+                          </span>
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            id={`count-input-${cart.CART_ID}`} // 고유 ID 추가
+                            className="count-input"
+                            value={
+                              countRe[cart.CART_ID] == null
+                                ? cart.CART_COUNT
+                                : countRe[cart.CART_ID]
+                            }
+                            readOnly
+                          />
+                          <div className="plusMinus-div">
+                            <button
+                              type="button"
+                              id="plus"
+                              onClick={() => countHandle("plus", cart.CART_ID)} // cart.id 전달
+                            >
+                              <img
+                                src="https://cdn.mrpizza.co.kr/2014_resources/images/common/icon_plus.png"
+                                alt="plus"
+                              />
+                            </button>
+                            <button
+                              type="button"
+                              id="minus"
+                              onClick={() => countHandle("minus", cart.CART_ID)} // cart.id 전달
+                            >
+                              <img
+                                src="https://cdn.mrpizza.co.kr/2014_resources/images/common/icon_minus.png"
+                                alt="minus"
+                              />
+                            </button>
+                          </div>
+                        </td>
+                        <td id="lastTd">
+                          <strong>
+                            {formatPrice(
                               countPrice[cart.CART_ID] == null
                                 ? cart.CART_PRICE
-                                : countPrice[cart.CART_ID],
-                              e.target.checked,
-                              cart.CART_ID
-                            )
-                          }
-                        />
-                      </td>
-                      <td
-                        style={{
-                          border: "none",
-                          borderBottom: "1px solid #cccccc",
-                        }}
-                      >
-                        <img
-                          src={cart.CART_IMG}
-                          style={{ width: "150px", height: "100px" }}
-                        />
-                      </td>
-                      <td colSpan="2">
-                        <strong className="title-strong">
-                          {cart.CART_TITLE}
-                        </strong>
-                        <br />
-                        <span className="title-span">
-                          사이즈 : {cart.CART_SIZE}
-                          {cart.CART_SIZE === "M" ? "(미디움)" : "(라지)"}
-                        </span>
-                        <br />
-                        <span className="title-span">
-                          엣지 : {cart.CART_DOW}
-                        </span>
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          id={`count-input-${cart.CART_ID}`} // 고유 ID 추가
-                          className="count-input"
-                          value={
-                            countRe[cart.CART_ID] == null
-                              ? cart.CART_COUNT
-                              : countRe[cart.CART_ID]
-                          }
-                          readOnly
-                        />
-                        <div className="plusMinus-div">
-                          <button
-                            type="button"
-                            id="plus"
-                            onClick={() => countHandle("plus", cart.CART_ID)} // cart.id 전달
-                          >
-                            <img
-                              src="https://cdn.mrpizza.co.kr/2014_resources/images/common/icon_plus.png"
-                              alt="plus"
-                            />
-                          </button>
-                          <button
-                            type="button"
-                            id="minus"
-                            onClick={() => countHandle("minus", cart.CART_ID)} // cart.id 전달
-                          >
-                            <img
-                              src="https://cdn.mrpizza.co.kr/2014_resources/images/common/icon_minus.png"
-                              alt="minus"
-                            />
-                          </button>
-                        </div>
-                      </td>
-                      <td id="lastTd">
-                        <strong>
-                          {formatPrice(
-                            countPrice[cart.CART_ID] == null
-                              ? cart.CART_PRICE
-                              : countPrice[cart.CART_ID]
-                          )}
-                        </strong>
-                        <span>원</span>
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
+                                : countPrice[cart.CART_ID]
+                            )}
+                          </strong>
+                          <span>원</span>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              )}
             </table>
             <p className="ca-mt10">
               <button

@@ -25,8 +25,9 @@ function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [error, setError] = useState(null);
-  const [cartList, setCartList] = useState([]);
+  const [tempCartList, setTempCartList] = useState([]);
   const [openOderModal, setOpenOderModal] = useState(false);
+  const cartList = JSON.parse(sessionStorage.getItem("cartList"));
   const stores = [
     {
       name: "서울지점",
@@ -137,7 +138,6 @@ function App() {
       MEMBER_PHONE: "010-1234-1234",
     },
   ];
-
   const [testIdPw, setTestIdPw] = useState(initialUsers);
 
   // Haversine 공식을 이용한 거리 계산 함수
@@ -211,6 +211,7 @@ function App() {
   const logout = () => {
     sessionStorage.removeItem("isLogin");
     sessionStorage.removeItem("logedInUser");
+    sessionStorage.removeItem("cartList");
     alert("로그아웃되었습니다.");
     window.location.href = "/MipiFront";
   };
@@ -273,9 +274,6 @@ function App() {
   }, [testIdPw]);
 
   const loginProc = (loginUser) => {
-    console.log("로그인 시도: " + loginUser.ID + ", " + loginUser.PASSWORD);
-    console.log(testIdPw);
-
     if (loginUser && loginUser.ID && loginUser.PASSWORD) {
       const user = testIdPw.find(
         (el) =>
@@ -368,9 +366,66 @@ function App() {
   //     alert("오류가 발생했습니다. 다시 시도해주세요.");
   //   }
   // };
+  const [cartListLength, setCartListLength] = useState(() => {
+    const storedCart = JSON.parse(sessionStorage.getItem("cartList")) || [];
+    return storedCart.reduce((sum, el) => sum + el.CART_COUNT, 0);
+  });
 
-  const insertCart = (cartList) => {
-    console.log(cartList);
+  const insertCart = (addCartList) => {
+    console.log("호출");
+    console.log(addCartList);
+
+    const length = Object.keys(addCartList).length;
+    console.log(length);
+
+    const storedCart = JSON.parse(sessionStorage.getItem("cartList")) || [];
+    const menus = [...pizzaList];
+    const selectList = menus.find(
+      (el) => el.BOARD_TITLE === addCartList.CART_TITLE
+    );
+
+    // 기존에 있는 항목인지 검증
+    const prevCart = storedCart.find(
+      (el) =>
+        el.CART_TITLE === addCartList.CART_TITLE &&
+        el.CART_SIZE === addCartList.CART_SIZE &&
+        el.CART_DOW === addCartList.CART_DOW
+    );
+
+    let updatedCartList;
+
+    if (prevCart) {
+      console.log("이미 존재하는 항목:", prevCart);
+      // 기존 항목의 CART_COUNT 증가
+      console.log(selectList[`BOARD_${addCartList.CART_SIZE}_PRICE`]);
+      prevCart.CART_COUNT += 1;
+      console.log(typeof prevCart.CART_PRICE);
+      console.log(typeof selectList[`BOARD_${addCartList.CART_SIZE}_PRICE`]);
+      prevCart.CART_PRICE =
+        parseInt(prevCart.CART_PRICE) +
+        selectList[`BOARD_${addCartList.CART_SIZE}_PRICE`];
+
+      // 기존 storedCart를 유지하면서 변경된 항목을 반영
+      updatedCartList = storedCart.map((el) =>
+        el.CART_ID === prevCart.CART_ID ? prevCart : el
+      );
+    } else {
+      console.log("새로운 항목 추가");
+      // 새로운 항목 추가
+      addCartList.CART_IMG = selectList
+        ? selectList.BOARD_IMG
+        : "default_image_url";
+      addCartList.CART_ID = storedCart.length + 1;
+      addCartList.CART_COUNT = 1;
+      updatedCartList = [...storedCart, addCartList];
+    }
+
+    // 세션 스토리지에 업데이트된 장바구니 저장
+    sessionStorage.setItem("cartList", JSON.stringify(updatedCartList));
+    setCartListLength(
+      updatedCartList.reduce((sum, el) => sum + el.CART_COUNT, 0)
+    );
+    alert("상품이 장바구니에 담겼습니다.");
   };
 
   return (
@@ -378,13 +433,13 @@ function App() {
       <Header
         toggleDropdown={toggleDropdown}
         oderModal={oderModal}
-        cartList={cartList}
+        cartListLength={cartListLength}
       />
       {openOderModal && (
         <OderModal setOpenOderModal={setOpenOderModal} loginProc={loginProc} />
       )}
       <DropDown closeDropdown={closeDropdown} isOpen={isOpen} />
-      <SideBar logout={logout} cartList={cartList} />
+      <SideBar logout={logout} cartListLength={cartListLength} />
       <Routes>
         <Route path="/MipiFront" element={<Home />} />
         <Route path="/JoinForm" element={<JoinForm joinProc={joinProc} />} />

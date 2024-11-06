@@ -1,11 +1,9 @@
+import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-function SideBar({ logout, cartList }) {
+function SideBar({ logout, cartListLength }) {
   const isLogin = sessionStorage.getItem("isLogin");
   const logedInUser = JSON.parse(sessionStorage.getItem("logedInUser"));
-  const cartSize = cartList
-    .filter((el) => el.ID === (logedInUser ? logedInUser.MEMBER_ID : null))
-    .reduce((sum, el) => sum + el.CART_COUNT, 0);
   const location = useLocation();
   const path = location.pathname;
 
@@ -19,7 +17,7 @@ function SideBar({ logout, cartList }) {
         <ul>
           <li>
             {!isLogin ? (
-              <Link to="/LoginForm">
+              <Link to="/LoginForm#login">
                 <img src="https://cdn.mrpizza.co.kr/2014_resources/images/common/ico_quick_01.png" />
                 <span>로그인</span>
               </Link>
@@ -44,18 +42,11 @@ function SideBar({ logout, cartList }) {
             )}
           </li>
           <li>
-            {isLogin ? (
-              <Link to="/Cart">
-                <img src="https://cdn.mrpizza.co.kr/2014_resources/images/common/ico_quick_03.png" />
-                <span className="side-z-index">{cartSize}</span>
-                <span>장바구니</span>
-              </Link>
-            ) : (
-              <Link to="/LoginForm">
-                <img src="https://cdn.mrpizza.co.kr/2014_resources/images/common/ico_quick_03.png" />
-                <span>장바구니</span>
-              </Link>
-            )}
+            <Link to={logedInUser ? "/Cart" : "/LoginForm#login"}>
+              <img src="https://cdn.mrpizza.co.kr/2014_resources/images/common/ico_quick_03.png" />
+              <span className="side-z-index">{cartListLength}</span>
+              <span>장바구니</span>
+            </Link>
           </li>
           <li>
             <a href="#">

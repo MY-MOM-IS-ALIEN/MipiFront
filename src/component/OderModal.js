@@ -63,6 +63,7 @@ const OderModal = ({ setOpenOderModal, loginProc }) => {
                           type="button"
                           className="button red h80"
                           onClick={loginProcHandel}
+                          style={{ marginRight: "0" }}
                         >
                           로그인 <span className="gt">&gt;</span>
                         </button>

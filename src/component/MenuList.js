@@ -25,7 +25,6 @@ function MenuList({ pizzaList, insertCart }) {
 
   const goCart = (pizza, count, countPrice, modalSize) => {
     const userObject = JSON.parse(sessionStorage.getItem("logedInUser"));
-    console.log(userObject.MEMBER_ID);
 
     const selectedRadio = document.querySelector(
       `input[name="pizza_${pizza.ID}_size"]:checked`

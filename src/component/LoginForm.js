@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 function LoginForm({ loginProc }) {
   const location = useLocation();
   const pathName = location.pathname;
+  const hashName = location.hash;
   let userId = useRef(null);
   let password = useRef(null);
 
@@ -26,7 +27,7 @@ function LoginForm({ loginProc }) {
         <ul>
           <li className="tab01">
             <a
-              href="/LoginForm"
+              href="/LoginForm#login"
               title="로그인"
               className={pathName === "/LoginForm" ? "on" : null}
             >
@@ -67,10 +68,14 @@ function LoginForm({ loginProc }) {
 
         <ul className="tabmenu tabMotion">
           <li className="tab01">
-            <a href="/loginForm">회원로그인</a>
+            <a href="#login" className={hashName === "#login" ? "on" : null}>
+              회원로그인
+            </a>
           </li>
           <li className="tab02">
-            <a href="#">비회원주문조회</a>
+            <a href="#guest" className={hashName === "#guest" ? "on" : null}>
+              비회원주문조회
+            </a>
           </li>
         </ul>
 

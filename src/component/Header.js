@@ -2,12 +2,8 @@ import React from "react";
 import menuBtn from "../img/menuBtn.png";
 import { Link, useLocation } from "react-router-dom";
 
-const Header = ({ toggleDropdown, oderModal, cartList }) => {
+const Header = ({ toggleDropdown, oderModal, cartListLength }) => {
   const loginedUser = JSON.parse(sessionStorage.getItem("logedInUser"));
-  console.log(loginedUser);
-  const cartSize = cartList
-    .filter((el) => el.ID === (loginedUser ? loginedUser.MEMBER_ID : null))
-    .reduce((sum, el) => sum + el.CART_COUNT, 0);
 
   const location = useLocation();
   const pathName = location.pathname;
@@ -55,7 +51,7 @@ const Header = ({ toggleDropdown, oderModal, cartList }) => {
             </Link>
           </li>
           <li className="nav__item">
-            <Link to="#">
+            <Link to={loginedUser ? "#" : "/LoginForm#login"}>
               <img src="https://cdn.mrpizza.co.kr/2014_resources/images/common/ico_gnb_05.png" />
               마이미피
             </Link>
@@ -66,7 +62,7 @@ const Header = ({ toggleDropdown, oderModal, cartList }) => {
         {pathName === "/Cart" ? null : (
           <a href={loginedUser ? "/Cart" : "/LoginForm"}>
             <img src="https://cdn.mrpizza.co.kr/2014_resources/images/common/ico_cart.png" />
-            <span className="cart-z-index">{cartSize}</span>
+            <span className="cart-z-index">{cartListLength}</span>
           </a>
         )}
         <button className="menu-btn" onClick={toggleDropdown}>

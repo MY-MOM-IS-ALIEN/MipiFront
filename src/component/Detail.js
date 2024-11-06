@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 function Detail({ pizzaList, insertCart }) {
   const { code } = useParams();
   const pizza = pizzaList.find((pizza) => pizza.ID === Number(code));
-  console.log(pizza);
+
   let [defaultValue, setDefaultValue] = useState(1);
   const [selectedPrice, setSelectedPrice] = useState(0);
   const [newCart, setNewCart] = useState(null);
@@ -30,13 +30,9 @@ function Detail({ pizzaList, insertCart }) {
       } else {
         modalSize = "L";
       }
-      console.log(defaultValue);
-      console.log(selectedPrice);
-      console.log(pizza);
 
       setNewCart({
         MEMBER_ID: userObject.MEMBER_ID,
-        CART_ID: pizza.ID,
         CART_TITLE: pizza.BOARD_TITLE,
         CART_SIZE: modalSize,
         CART_PRICE: selectedPrice,
@@ -106,7 +102,12 @@ function Detail({ pizzaList, insertCart }) {
             <ul>
               <li className="plusMinus">
                 <span>수량</span>{" "}
-                <input type="text" value={defaultValue} id="defualtValue" />{" "}
+                <input
+                  type="text"
+                  value={defaultValue}
+                  onChange={(e) => e.target.value}
+                  id="defualtValue"
+                />{" "}
                 <div className="plusMinus-div">
                   <button type="button" id="plus" onClick={plusValue}>
                     <img src="https://cdn.mrpizza.co.kr/2014_resources/images/common/icon_plus.png" />

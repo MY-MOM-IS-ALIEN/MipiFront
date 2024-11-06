@@ -778,16 +778,6 @@ body {
   box-sizing: border-box; /* 테두리와 패딩을 높이에 포함 */
 }
 
-.tabmenu li:first-child a {
-  border-color: #808080; /* 테두리 색상 */
-  border-top: 4px solid #dd0009; /* 상단 테두리 두께와 색상 설정 */
-  background: #fff; /* 배경색을 흰색으로 설정 */
-  color: #cb1919; /* 텍스트 색상 */
-  font-family: NGBold; /* 폰트 설정 */
-  padding: 0 30px; /* 좌우 패딩 */
-  box-sizing: border-box; /* 테두리와 패딩을 높이에 포함 */
-}
-
 /* 탭 활성화 시 스타일 */
 .tabmenu li a:hover,
 .tabmenu li a:focus,

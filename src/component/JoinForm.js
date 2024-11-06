@@ -212,13 +212,13 @@ function JoinForm({ joinProc }) {
         <h1>회원공간</h1>
         <ul>
           <li>
-            <a href="/loginForm" title="로그인">
+            <a href="/LoginForm#login" title="로그인">
               로그인
             </a>
           </li>
           <li>
             <a
-              href="/joinForm"
+              href="/JoinForm"
               className={pathName === "/JoinForm" ? "on" : null}
             >
               회원가입
