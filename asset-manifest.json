@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/MipiFront/static/css/main.082f253c.css",
-    "main.js": "/MipiFront/static/js/main.544064b1.js",
+    "main.js": "/MipiFront/static/js/main.3df450a9.js",
     "static/js/453.590b3e1b.chunk.js": "/MipiFront/static/js/453.590b3e1b.chunk.js",
     "static/media/slick.svg": "/MipiFront/static/media/slick.2630a3e3eab21c607e21.svg",
     "static/media/slick.eot": "/MipiFront/static/media/slick.a4e97f5a2a64f0ab1323.eot",
@@ -9,11 +9,11 @@
     "static/media/slick.woff": "/MipiFront/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/MipiFront/index.html",
     "main.082f253c.css.map": "/MipiFront/static/css/main.082f253c.css.map",
-    "main.544064b1.js.map": "/MipiFront/static/js/main.544064b1.js.map",
+    "main.3df450a9.js.map": "/MipiFront/static/js/main.3df450a9.js.map",
     "453.590b3e1b.chunk.js.map": "/MipiFront/static/js/453.590b3e1b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.082f253c.css",
-    "static/js/main.544064b1.js"
+    "static/js/main.3df450a9.js"
   ]
 }
