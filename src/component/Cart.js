@@ -7,18 +7,17 @@ import greyPayment from "../img/grey_payment.gif";
 import redPayment from "../img/red_payment.gif";
 import { useState, useEffect } from "react";
 
-const Cart = ({ cartList, insertCart }) => {
+const Cart = ({ insertCart, deleteCart, setCartListLength }) => {
   const location = useLocation();
   const pathName = location.pathname;
-  const user = sessionStorage.getItem("logedInUser");
-  const userObject = user ? JSON.parse(user) : null;
+  const userObject = JSON.parse(sessionStorage.getItem("logedInUser")) || null;
   const memberId = userObject?.MEMBER_ID;
-
+  const cartList = JSON.parse(sessionStorage.getItem("cartList"));
   // 현재 로그인된 사용자(memberId)에 해당하는 cartList 필터링
   const filteredCartList = (cartList || []).filter(
     (cart) => cart.MEMBER_ID === memberId
   );
-  console.log(filteredCartList);
+
   const [countRe, setCountRe] = useState({});
   const [countPrice, setCountPrice] = useState({});
   const [updateCart, setUpdateCart] = useState({});
@@ -27,37 +26,42 @@ const Cart = ({ cartList, insertCart }) => {
   const updateId = useRef(null);
   const [allchk, setAllchk] = useState(false); // 전체 체크 여부 상태
   const [selectedPrices, setSelectedPrices] = useState([]); // 선택된 가격들의 배열
-  const [checkedItems, setCheckedItems] = useState({}); // 개별 체크 상태 관리
+  const [checkedItems, setCheckedItems] = useState([]); // 개별 체크 상태 관리
 
-  const selectDelete = async () => {
-    const existingBoxItem = Object.entries(checkedItems).find(
-      ([key, el]) => el.CHECKED === true
-    );
-
-    if (existingBoxItem) {
-      // existingBoxItem이 정의된 경우에만 처리
-      const [key, el] = existingBoxItem; // 배열을 구조분해할당
-      const isChecked = el.CHECKED; // CHECKED 값 확인
-      console.log(isChecked); // CHECKED 값을 확인
-
-      // 모든 insertCart 호출을 Promise로 배열에 저장
-      const insertPromises = selectedPrices.map((el) => {
-        return insertCart({ CART_ID: el.ID });
-      });
-
-      // 모든 Promise가 완료될 때까지 대기
-      await Promise.all(insertPromises);
-
-      // 모든 작업이 완료된 후 페이지 리로드
-      window.location.reload();
-    } else {
-      console.log(checkedItems);
-      alert("삭제하실 제품을 선택해주세요."); // 체크된 항목이 없을 경우 알림
-    }
+  const selectDelete = () => {
+    Object.values(checkedItems).forEach((el) => deleteCart(el.ID));
   };
+
+  // const selectDelete = async () => {
+  //   const existingBoxItem = Object.entries(checkedItems).find(
+  //     ([key, el]) => el.CHECKED === true
+  //   );
+
+  //   if (existingBoxItem) {
+  //     // existingBoxItem이 정의된 경우에만 처리
+  //     const [key, el] = existingBoxItem; // 배열을 구조분해할당
+  //     const isChecked = el.CHECKED; // CHECKED 값 확인
+  //     console.log(isChecked); // CHECKED 값을 확인
+
+  //     // 모든 insertCart 호출을 Promise로 배열에 저장
+  //     const insertPromises = selectedPrices.map((el) => {
+  //       return insertCart({ CART_ID: el.ID });
+  //     });
+
+  //     // 모든 Promise가 완료될 때까지 대기
+  //     await Promise.all(insertPromises);
+
+  //     // 모든 작업이 완료된 후 페이지 리로드
+  //     window.location.reload();
+  //   } else {
+  //     console.log(checkedItems);
+  //     alert("삭제하실 제품을 선택해주세요."); // 체크된 항목이 없을 경우 알림
+  //   }
+  // };
 
   // 전체 체크박스 클릭 시 호출되는 함수
   const allCheck = () => {
+    console.log("호출");
     const newAllChkState = !allchk;
     setAllchk(newAllChkState);
 
@@ -66,7 +70,7 @@ const Cart = ({ cartList, insertCart }) => {
 
     // 모든 아이템에 대해 전체 체크 여부에 따라 업데이트
     cartList
-      .filter((item) => item.ID === memberId)
+      .filter((item) => item.MEMBER_ID === memberId)
       .forEach((item) => {
         updatedCheckedItems[item.CART_ID] = {
           ID: item.CART_ID,
@@ -84,6 +88,7 @@ const Cart = ({ cartList, insertCart }) => {
   // 개별 체크박스 클릭 시 호출되는 함수
   const handleCheck = (price, isChecked, cartId) => {
     // checkedItems 상태 업데이트
+
     setCheckedItems((prev) => ({
       ...prev,
       [cartId]: { ID: cartId, CHECKED: isChecked }, // isChecked 값을 그대로 사용
@@ -96,8 +101,6 @@ const Cart = ({ cartList, insertCart }) => {
         return [...prev, { ID: cartId, PRICE: price }];
       } else {
         // 체크 해제 시 해당 항목 제거
-        console.log("체크해제시");
-        console.log(prev);
         return prev.filter((item) => item.ID !== cartId);
       }
     });
@@ -119,75 +122,120 @@ const Cart = ({ cartList, insertCart }) => {
   }, [countRe, countPrice]);
 
   const formatPrice = (price) => {
+    price = Number(price);
+
     return price.toLocaleString();
   };
 
+  // const countHandle = (action, id) => {
+  //   // 수량 업데이트
+  //   const newCountRe = (prevState) => {
+  //     const newCount = { ...prevState };
+  //     const currentCount =
+  //       newCount[id] ||
+  //       cartList.find((cart) => cart.CART_ID === id)?.CART_COUNT ||
+  //       0;
+
+  //     if (action === "plus") {
+  //       newCount[id] = currentCount + 1;
+  //     } else if (action === "minus") {
+  //       newCount[id] = Math.max(currentCount - 1, 0);
+  //     }
+
+  //     updateCount.current = newCount[id]; // useRef에 수량 저장
+  //     updateId.current = id; // useRef에 ID 저장
+  //     return newCount;
+  //   };
+
+  //   // 가격 업데이트
+  //   const newCountPrice = (prevPrice) => {
+  //     const item = cartList.find((cart) => cart.CART_ID === id);
+  //     const itemPrice = item ? item.CART_PRICE / item.CART_COUNT : 0;
+  //     const newPrice = { ...prevPrice };
+  //     const calculatedPrice = newCountRe(countRe)[id] * itemPrice;
+  //     newPrice[id] = calculatedPrice;
+
+  //     updatePrice.current = calculatedPrice; // useRef에 가격 저장
+
+  //     const existingBoxItem = Object.entries(checkedItems).find(
+  //       ([key, el]) => el.ID === id
+  //     );
+
+  //     if (existingBoxItem) {
+  //       // selectedPrices에서 해당 ID 찾기
+  //       const [key, el] = existingBoxItem; // 배열을 구조분해할당
+  //       const isChecked = el.CHECKED; // CHECKED 값 확인
+  //       console.log(isChecked); // CHECKED 값을 확인
+  //       if (isChecked) {
+  //         const existingItem = selectedPrices.find((el) => el.ID === id);
+
+  //         if (existingItem) {
+  //           console.log("있음에 찍힘");
+  //           setSelectedPrices((prev) =>
+  //             prev.map((el) =>
+  //               el.ID === id ? { ...el, PRICE: calculatedPrice } : el
+  //             )
+  //           );
+  //         } else {
+  //           console.log("없음에 찍힘");
+  //           setSelectedPrices((prev) => [
+  //             ...prev,
+  //             { ID: id, PRICE: calculatedPrice },
+  //           ]);
+  //         }
+  //       } else {
+  //         setSelectedPrices(selectedPrices.filter((prev) => prev.ID !== id));
+  //       }
+  //     }
+  //     return newPrice;
+  //   };
+
+  //   // 상태 업데이트
+  //   setCountRe(newCountRe);
+  //   setCountPrice(newCountPrice);
+  // };
+
+  const [cartList1, setCartList1] = useState([]);
+
+  // 컴포넌트가 처음 렌더링될 때 sessionStorage에서 cartList 불러오기
+  useEffect(() => {
+    const storedCartList = JSON.parse(sessionStorage.getItem("cartList")) || [];
+    setCartList1(storedCartList);
+  }, []);
+
   const countHandle = (action, id) => {
-    // 수량 업데이트
-    const newCountRe = (prevState) => {
-      const newCount = { ...prevState };
-      const currentCount =
-        newCount[id] ||
-        cartList.find((cart) => cart.CART_ID === id)?.CART_COUNT ||
-        0;
+    const prevCart = [...cartList1]; // 상태에서 복사본 생성
+    const updateCart = prevCart.find((el) => el.CART_ID === id);
+    const prevSelectedPrice = selectedPrices.find((el) => el.ID === id);
 
-      if (action === "plus") {
-        newCount[id] = currentCount + 1;
-      } else if (action === "minus") {
-        newCount[id] = Math.max(currentCount - 1, 0);
+    if (!updateCart) return; // 해당 ID가 없을 때 함수 종료
+
+    const updatePrice = updateCart.CART_PRICE / updateCart.CART_COUNT;
+
+    if (action === "plus") {
+      if (prevSelectedPrice) {
+        prevSelectedPrice.PRICE = Number(prevSelectedPrice.PRICE) + updatePrice;
       }
-
-      updateCount.current = newCount[id]; // useRef에 수량 저장
-      updateId.current = id; // useRef에 ID 저장
-      return newCount;
-    };
-
-    // 가격 업데이트
-    const newCountPrice = (prevPrice) => {
-      const item = cartList.find((cart) => cart.CART_ID === id);
-      const itemPrice = item ? item.CART_PRICE / item.CART_COUNT : 0;
-      const newPrice = { ...prevPrice };
-      const calculatedPrice = newCountRe(countRe)[id] * itemPrice;
-      newPrice[id] = calculatedPrice;
-
-      updatePrice.current = calculatedPrice; // useRef에 가격 저장
-
-      const existingBoxItem = Object.entries(checkedItems).find(
-        ([key, el]) => el.ID === id
-      );
-
-      if (existingBoxItem) {
-        // selectedPrices에서 해당 ID 찾기
-        const [key, el] = existingBoxItem; // 배열을 구조분해할당
-        const isChecked = el.CHECKED; // CHECKED 값 확인
-        console.log(isChecked); // CHECKED 값을 확인
-        if (isChecked) {
-          const existingItem = selectedPrices.find((el) => el.ID === id);
-
-          if (existingItem) {
-            console.log("있음에 찍힘");
-            setSelectedPrices((prev) =>
-              prev.map((el) =>
-                el.ID === id ? { ...el, PRICE: calculatedPrice } : el
-              )
-            );
-          } else {
-            console.log("없음에 찍힘");
-            setSelectedPrices((prev) => [
-              ...prev,
-              { ID: id, PRICE: calculatedPrice },
-            ]);
-          }
-        } else {
-          setSelectedPrices(selectedPrices.filter((prev) => prev.ID !== id));
-        }
+      updateCart.CART_COUNT++;
+      updateCart.CART_PRICE = Number(updateCart.CART_PRICE) + updatePrice;
+    } else {
+      if (prevSelectedPrice) {
+        prevSelectedPrice.PRICE = Number(prevSelectedPrice.PRICE) - updatePrice;
       }
-      return newPrice;
-    };
+      updateCart.CART_COUNT--;
+      updateCart.CART_PRICE = Number(updateCart.CART_PRICE) - updatePrice;
+    }
 
-    // 상태 업데이트
-    setCountRe(newCountRe);
-    setCountPrice(newCountPrice);
+    // 업데이트된 배열 생성 및 상태 업데이트
+    const updatedCartList = prevCart
+      .map((item) => (item.CART_ID === id ? updateCart : item))
+      .filter((item) => item.CART_COUNT > 0);
+
+    setCartList1(updatedCartList); // 상태 업데이트
+    setCartListLength(
+      updatedCartList.reduce((sum, el) => sum + el.CART_COUNT, 0)
+    );
+    sessionStorage.setItem("cartList", JSON.stringify(updatedCartList)); // sessionStorage 업데이트
   };
 
   return (
@@ -298,105 +346,91 @@ const Cart = ({ cartList, insertCart }) => {
                 </tbody>
               ) : (
                 <tbody>
-                  {filteredCartList
-                    .filter(
-                      (cart) =>
-                        countRe[cart.CART_ID] == null ||
-                        countRe[cart.CART_ID] !== 0
-                    )
-                    .map((cart) => (
-                      <tr key={cart.CART_ID}>
-                        <td>
-                          <input
-                            type="checkbox"
-                            className="ca-checkbox"
-                            style={{ width: "20px", height: "20px" }}
-                            checked={
-                              checkedItems[cart.CART_ID]?.CHECKED || false
-                            } // 개별 체크 상태
-                            onChange={(e) =>
-                              handleCheck(
-                                countPrice[cart.CART_ID] == null
-                                  ? cart.CART_PRICE
-                                  : countPrice[cart.CART_ID],
-                                e.target.checked,
-                                cart.CART_ID
-                              )
-                            }
-                          />
-                        </td>
-                        <td
-                          style={{
-                            border: "none",
-                            borderBottom: "1px solid #cccccc",
-                          }}
-                        >
-                          <img
-                            src={cart.CART_IMG}
-                            style={{ width: "150px", height: "100px" }}
-                          />
-                        </td>
-                        <td colSpan="2">
-                          <strong className="title-strong">
-                            {cart.CART_TITLE}
-                          </strong>
-                          <br />
-                          <span className="title-span">
-                            사이즈 : {cart.CART_SIZE}
-                            {cart.CART_SIZE === "M" ? "(미디움)" : "(라지)"}
-                          </span>
-                          <br />
-                          <span className="title-span">
-                            엣지 : {cart.CART_DOW}
-                          </span>
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            id={`count-input-${cart.CART_ID}`} // 고유 ID 추가
-                            className="count-input"
-                            value={
-                              countRe[cart.CART_ID] == null
-                                ? cart.CART_COUNT
-                                : countRe[cart.CART_ID]
-                            }
-                            readOnly
-                          />
-                          <div className="plusMinus-div">
-                            <button
-                              type="button"
-                              id="plus"
-                              onClick={() => countHandle("plus", cart.CART_ID)} // cart.id 전달
-                            >
-                              <img
-                                src="https://cdn.mrpizza.co.kr/2014_resources/images/common/icon_plus.png"
-                                alt="plus"
-                              />
-                            </button>
-                            <button
-                              type="button"
-                              id="minus"
-                              onClick={() => countHandle("minus", cart.CART_ID)} // cart.id 전달
-                            >
-                              <img
-                                src="https://cdn.mrpizza.co.kr/2014_resources/images/common/icon_minus.png"
-                                alt="minus"
-                              />
-                            </button>
-                          </div>
-                        </td>
-                        <td id="lastTd">
-                          <strong>
-                            {formatPrice(
+                  {cartList.map((cart) => (
+                    <tr key={cart.CART_ID}>
+                      <td>
+                        <input
+                          type="checkbox"
+                          className="ca-checkbox"
+                          style={{ width: "20px", height: "20px" }}
+                          checked={checkedItems[cart.CART_ID]?.CHECKED || false} // 개별 체크 상태
+                          onChange={(e) =>
+                            handleCheck(
                               countPrice[cart.CART_ID] == null
                                 ? cart.CART_PRICE
-                                : countPrice[cart.CART_ID]
-                            )}
-                          </strong>
-                          <span>원</span>
-                        </td>
-                      </tr>
-                    ))}
+                                : countPrice[cart.CART_ID],
+                              e.target.checked,
+                              cart.CART_ID
+                            )
+                          }
+                        />
+                      </td>
+                      <td
+                        style={{
+                          border: "none",
+                          borderBottom: "1px solid #cccccc",
+                        }}
+                      >
+                        <img
+                          src={cart.CART_IMG}
+                          style={{ width: "150px", height: "100px" }}
+                        />
+                      </td>
+                      <td colSpan="2">
+                        <strong className="title-strong">
+                          {cart.CART_TITLE}
+                        </strong>
+                        <br />
+                        <span className="title-span">
+                          사이즈 : {cart.CART_SIZE}
+                          {cart.CART_SIZE === "M" ? "(미디움)" : "(라지)"}
+                        </span>
+                        <br />
+                        <span className="title-span">
+                          엣지 : {cart.CART_DOW}
+                        </span>
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          id={`count-input-${cart.CART_ID}`} // 고유 ID 추가
+                          className="count-input"
+                          value={
+                            countRe[cart.CART_ID] == null
+                              ? cart.CART_COUNT
+                              : countRe[cart.CART_ID]
+                          }
+                          readOnly
+                        />
+                        <div className="plusMinus-div">
+                          <button
+                            type="button"
+                            id="plus"
+                            onClick={() => countHandle("plus", cart.CART_ID)} // cart.id 전달
+                          >
+                            <img
+                              src="https://cdn.mrpizza.co.kr/2014_resources/images/common/icon_plus.png"
+                              alt="plus"
+                            />
+                          </button>
+                          <button
+                            type="button"
+                            id="minus"
+                            onClick={() => countHandle("minus", cart.CART_ID)} // cart.id 전달
+                          >
+                            <img
+                              src="https://cdn.mrpizza.co.kr/2014_resources/images/common/icon_minus.png"
+                              alt="minus"
+                            />
+                          </button>
+                        </div>
+                      </td>
+                      <td id="lastTd">
+                        <strong>{formatPrice(cart.CART_PRICE)}</strong>
+                        <span>원</span>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               )}
             </table>
@@ -453,7 +487,7 @@ const Cart = ({ cartList, insertCart }) => {
                     <strong>
                       {formatPrice(
                         selectedPrices.reduce(
-                          (sum, price) => sum + price.PRICE,
+                          (sum, price) => sum + Number(price.PRICE),
                           0
                         )
                       )}{" "}

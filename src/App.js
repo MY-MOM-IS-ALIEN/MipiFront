@@ -415,7 +415,10 @@ function App() {
       addCartList.CART_IMG = selectList
         ? selectList.BOARD_IMG
         : "default_image_url";
-      addCartList.CART_ID = storedCart.length + 1;
+      const lastIndex = storedCart[storedCart.length - 1] || { CART_ID: 0 };
+
+      addCartList.CART_ID = lastIndex.CART_ID + 1;
+
       addCartList.CART_COUNT = 1;
       updatedCartList = [...storedCart, addCartList];
     }
@@ -426,6 +429,14 @@ function App() {
       updatedCartList.reduce((sum, el) => sum + el.CART_COUNT, 0)
     );
     alert("상품이 장바구니에 담겼습니다.");
+  };
+
+  const deleteCart = (id) => {
+    const prevCart = JSON.parse(sessionStorage.getItem("cartList"));
+    const newCart = prevCart.filter((el) => el.CART_ID !== id);
+
+    sessionStorage.setItem("cartList", JSON.stringify(newCart));
+    window.location.reload();
   };
 
   return (
@@ -478,7 +489,13 @@ function App() {
         />
         <Route
           path="/Cart"
-          element={<Cart cartList={cartList} insertCart={insertCart} />}
+          element={
+            <Cart
+              insertCart={insertCart}
+              deleteCart={deleteCart}
+              setCartListLength={setCartListLength}
+            />
+          }
         />
         <Route
           path="/menuList/Detail/:code"
