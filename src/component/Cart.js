@@ -13,23 +13,23 @@ const Cart = ({ insertCart, deleteCart, setCartListLength }) => {
   const userObject = JSON.parse(sessionStorage.getItem("logedInUser")) || null;
   const memberId = userObject?.MEMBER_ID;
   const cartList = JSON.parse(sessionStorage.getItem("cartList"));
-  // 현재 로그인된 사용자(memberId)에 해당하는 cartList 필터링
-  const filteredCartList = (cartList || []).filter(
-    (cart) => cart.MEMBER_ID === memberId
-  );
 
-  const [countRe, setCountRe] = useState({});
-  const [countPrice, setCountPrice] = useState({});
-  const [updateCart, setUpdateCart] = useState({});
-  const updateCount = useRef(null);
-  const updatePrice = useRef(null);
-  const updateId = useRef(null);
   const [allchk, setAllchk] = useState(false); // 전체 체크 여부 상태
   const [selectedPrices, setSelectedPrices] = useState([]); // 선택된 가격들의 배열
   const [checkedItems, setCheckedItems] = useState([]); // 개별 체크 상태 관리
 
   const selectDelete = () => {
-    Object.values(checkedItems).forEach((el) => deleteCart(el.ID));
+    if (checkedItems != "") {
+      Object.values(checkedItems).forEach((el) => {
+        if (el.CHECKED) {
+          deleteCart(el.ID);
+        } else {
+          alert("삭제할 제품을 선택해주세요");
+        }
+      });
+    } else {
+      alert("삭제할 제품을 선택해주세요");
+    }
   };
 
   // const selectDelete = async () => {
@@ -105,21 +105,6 @@ const Cart = ({ insertCart, deleteCart, setCartListLength }) => {
       }
     });
   };
-
-  useEffect(() => {
-    if (
-      updateId.current !== null &&
-      updateCount.current !== null &&
-      updatePrice.current !== null
-    ) {
-      insertCart({
-        ID: memberId,
-        CART_ID: updateId.current,
-        CART_COUNT: updateCount.current,
-        CART_PRICE: updatePrice.current,
-      });
-    }
-  }, [countRe, countPrice]);
 
   const formatPrice = (price) => {
     price = Number(price);
@@ -356,9 +341,7 @@ const Cart = ({ insertCart, deleteCart, setCartListLength }) => {
                           checked={checkedItems[cart.CART_ID]?.CHECKED || false} // 개별 체크 상태
                           onChange={(e) =>
                             handleCheck(
-                              countPrice[cart.CART_ID] == null
-                                ? cart.CART_PRICE
-                                : countPrice[cart.CART_ID],
+                              cart.CART_PRICE,
                               e.target.checked,
                               cart.CART_ID
                             )
@@ -395,11 +378,7 @@ const Cart = ({ insertCart, deleteCart, setCartListLength }) => {
                           type="text"
                           id={`count-input-${cart.CART_ID}`} // 고유 ID 추가
                           className="count-input"
-                          value={
-                            countRe[cart.CART_ID] == null
-                              ? cart.CART_COUNT
-                              : countRe[cart.CART_ID]
-                          }
+                          value={cart.CART_COUNT}
                           readOnly
                         />
                         <div className="plusMinus-div">
