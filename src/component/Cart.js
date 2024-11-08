@@ -23,6 +23,7 @@ const Cart = ({ insertCart, deleteCart, setCartListLength }) => {
       Object.values(checkedItems).forEach((el) => {
         if (el.CHECKED) {
           deleteCart(el.ID);
+          window.location.reload();
         } else {
           alert("삭제할 제품을 선택해주세요");
         }

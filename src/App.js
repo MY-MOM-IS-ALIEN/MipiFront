@@ -436,7 +436,6 @@ function App() {
     const newCart = prevCart.filter((el) => el.CART_ID !== id);
 
     sessionStorage.setItem("cartList", JSON.stringify(newCart));
-    window.location.href = "/Cart";
   };
 
   return (
